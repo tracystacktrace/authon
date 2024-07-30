@@ -13,7 +13,7 @@ public interface IStorage {
 
     boolean deletePlayer(@NotNull String username);
 
-    boolean updateIPAdress(@NotNull PlayerContainer player);
+    boolean updateIPAddress(@NotNull PlayerContainer player);
 
     boolean updatePassword(@NotNull PlayerContainer player);
 }

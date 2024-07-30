@@ -2,7 +2,7 @@ package net.tracyex0.authon.mixins;
 
 import net.minecraft.src.game.entity.player.EntityPlayerMP;
 import net.minecraft.src.server.packets.*;
-import net.tracyex0.authon.AuthonServer;
+import net.tracyex0.authon.misc.GameUtils;
 import net.tracyex0.authon.misc.IPlayerAuth;
 import net.tracyex0.authon.misc.TemporaryTape;
 import org.spongepowered.asm.mixin.Mixin;
@@ -112,7 +112,7 @@ public abstract class MixinNetServerHandler {
         if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
             String message = packet3Chat.message;
             if (!message.startsWith("/login") && !message.startsWith("/register")) {
-                AuthonServer.informPlayer(this.playerEntity);
+                GameUtils.informPlayer(this.playerEntity);
                 ci.cancel();
             }
         }

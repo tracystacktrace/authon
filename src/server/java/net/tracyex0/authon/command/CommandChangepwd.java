@@ -3,6 +3,7 @@ package net.tracyex0.authon.command;
 import com.fox2code.foxloader.network.NetworkPlayer;
 import com.fox2code.foxloader.registry.CommandCompat;
 import net.tracyex0.authon.AuthonServer;
+import net.tracyex0.authon.misc.GameUtils;
 import net.tracyex0.authon.storage.PlayerContainer;
 
 public class CommandChangepwd extends CommandCompat {
@@ -39,7 +40,7 @@ public class CommandChangepwd extends CommandCompat {
             return;
         }
 
-        if (!AuthonServer.isPasswordSuitable(args[2])) {
+        if (!GameUtils.isPasswordSuitable(args[2])) {
             commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_password_short);
             return;
         }

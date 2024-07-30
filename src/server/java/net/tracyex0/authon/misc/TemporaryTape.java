@@ -1,6 +1,7 @@
 package net.tracyex0.authon.misc;
 
 import net.minecraft.src.game.entity.player.EntityPlayer;
+import org.jetbrains.annotations.NotNull;
 
 public class TemporaryTape {
     public final double x;
@@ -9,7 +10,7 @@ public class TemporaryTape {
     public final float yaw;
     public final float pitch;
 
-    public TemporaryTape(EntityPlayer entityPlayer) {
+    public TemporaryTape(@NotNull EntityPlayer entityPlayer) {
         this.x = entityPlayer.posX;
         this.y = entityPlayer.posY;
         this.z = entityPlayer.posZ;

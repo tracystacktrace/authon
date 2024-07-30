@@ -2,13 +2,7 @@ package net.tracyex0.authon.misc;
 
 import com.fox2code.foxloader.config.ConfigEntry;
 
-/**
- * :3
- */
 public class AuthonConfig {
-
-    @ConfigEntry(configName = "Amount of warn messages before kicking the player")
-    public int warnInterval = 5;
 
     @ConfigEntry(configName = "Amount of time (in seconds) to allow the player to login/register")
     public int waitingTime = 30;
@@ -28,7 +22,7 @@ public class AuthonConfig {
     public String local_auth_kick = "§cAuthOn: Too long! Try again?";
 
     @ConfigEntry(configName = "local_not_registered")
-    public String local_not_registered = "§6AuthOn: §cYou\'re not registered! Register first!";
+    public String local_not_registered = "§6AuthOn: §cYou're not registered! Register first!";
 
     @ConfigEntry(configName = "local_login_already")
     public String local_login_already = "§6AuthOn: §cAlready logged in!";
@@ -44,4 +38,10 @@ public class AuthonConfig {
 
     @ConfigEntry(configName = "local_password_short")
     public String local_password_short = "§6AuthOn: §cPassword too short!";
+
+    @ConfigEntry(configName = "local_command_usage")
+    public String local_command_usage = "§6AuthOn Usage: %s";
+
+    @ConfigEntry(configName = "local_command_invalid")
+    public String local_command_invalid = "§cInvalid syntax! Use %s";
 }

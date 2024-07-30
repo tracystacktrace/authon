@@ -2,8 +2,8 @@ package net.tracyex0.authon.command;
 
 import com.fox2code.foxloader.network.NetworkPlayer;
 import com.fox2code.foxloader.registry.CommandCompat;
-import net.minecraft.src.server.packets.NetServerHandler;
 import net.tracyex0.authon.AuthonServer;
+import net.tracyex0.authon.misc.GameUtils;
 import net.tracyex0.authon.misc.IPlayerAuth;
 import net.tracyex0.authon.storage.PlayerContainer;
 
@@ -38,13 +38,13 @@ public class CommandRegister extends CommandCompat {
 
         String password = args[1];
 
-        if (!AuthonServer.isPasswordSuitable(password)) {
+        if (!GameUtils.isPasswordSuitable(password)) {
             commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_password_short);
             return;
         }
 
         String hash = AuthonServer.getEncryption().getHash(password);
-        String ip = ((NetServerHandler) commandExecutor.getNetworkConnection()).netManager.getSocket().getInetAddress().getHostAddress();
+        String ip = GameUtils.getIPAddress(commandExecutor);
 
         PlayerContainer player = new PlayerContainer(commandExecutor.getPlayerName(), hash, ip);
 

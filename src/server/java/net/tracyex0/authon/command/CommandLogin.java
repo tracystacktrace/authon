@@ -2,8 +2,8 @@ package net.tracyex0.authon.command;
 
 import com.fox2code.foxloader.network.NetworkPlayer;
 import com.fox2code.foxloader.registry.CommandCompat;
-import net.minecraft.src.server.packets.NetServerHandler;
 import net.tracyex0.authon.AuthonServer;
+import net.tracyex0.authon.misc.GameUtils;
 import net.tracyex0.authon.misc.IPlayerAuth;
 import net.tracyex0.authon.storage.PlayerContainer;
 
@@ -32,7 +32,7 @@ public class CommandLogin extends CommandCompat {
         }
 
         if (args.length < 2) {
-            commandExecutor.displayChatMessage("Usage: /login <password>");
+            commandExecutor.displayChatMessage(String.format(AuthonServer.CONFIG.local_command_usage, this.commandSyntax()));
             return;
         }
 
@@ -46,9 +46,8 @@ public class CommandLogin extends CommandCompat {
         if (AuthonServer.getEncryption().compareHash(args[1], playerContainer.getHash())) {
             commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_login_success);
             auth.setAuthenticated(true);
-            String ip = ((NetServerHandler) commandExecutor.getNetworkConnection()).netManager.getSocket().getInetAddress().getHostAddress();
-            playerContainer.setIp(ip);
-            AuthonServer.getStorage().updateIPAdress(playerContainer);
+            playerContainer.setIp(GameUtils.getIPAddress(commandExecutor));
+            AuthonServer.getStorage().updateIPAddress(playerContainer);
         } else {
             commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_password_wrong);
             if (AuthonServer.CONFIG.instantKick) {

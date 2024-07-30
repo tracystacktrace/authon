@@ -103,7 +103,7 @@ public class H2Database implements IStorage {
     }
 
     @Override
-    public synchronized boolean updateIPAdress(@NotNull PlayerContainer player) {
+    public synchronized boolean updateIPAddress(@NotNull PlayerContainer player) {
         try (PreparedStatement statement = connection.prepareStatement("UPDATE authon SET ip=? WHERE username=?;")) {
             statement.setString(1, player.getIp());
             statement.setString(2, player.getUsername());

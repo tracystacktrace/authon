@@ -28,8 +28,8 @@ public class PassEncryption {
         return builder.toString();
     }
 
-    public @Nullable String getHash(@NotNull String s) {
-        if (s.isEmpty()) {
+    public @Nullable String getHash(@Nullable String s) {
+        if (s == null || s.isEmpty()) {
             return null;
         }
 

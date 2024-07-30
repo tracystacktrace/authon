@@ -5,6 +5,7 @@ import com.fox2code.foxloader.registry.RegisteredCommandSender;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.game.entity.player.EntityPlayerMP;
 import net.tracyex0.authon.AuthonServer;
+import net.tracyex0.authon.misc.GameUtils;
 import net.tracyex0.authon.storage.PlayerContainer;
 
 public class CommandAdminAuthon extends CommandCompat {
@@ -21,16 +22,16 @@ public class CommandAdminAuthon extends CommandCompat {
     @Override
     public void onExecute(String[] args, RegisteredCommandSender commandExecutor) {
         if (args.length < 2) {
-            commandExecutor.displayChatMessage("§cInfo: /authon register <username> <password>");
-            commandExecutor.displayChatMessage("§cInfo: /authon changepwd <username> <password>");
-            commandExecutor.displayChatMessage("§cInfo: /authon unregister <username>");
+            commandExecutor.displayChatMessage(String.format(AuthonServer.CONFIG.local_command_usage, "§e/authon register <username> <password>"));
+            commandExecutor.displayChatMessage(String.format(AuthonServer.CONFIG.local_command_usage, "§e/authon changepwd <username> <password>"));
+            commandExecutor.displayChatMessage(String.format(AuthonServer.CONFIG.local_command_usage, "§e/authon unregister <username>"));
             return;
         }
 
         switch (args[1]) {
             case "register": {
                 if (args.length < 4) {
-                    commandExecutor.displayChatMessage("§cError: Invalid syntax! Use /authon register <username> <password>");
+                    commandExecutor.displayChatMessage(String.format(AuthonServer.CONFIG.local_command_invalid, "/authon register <username> <password>"));
                     return;
                 }
                 String username = args[2];
@@ -38,8 +39,8 @@ public class CommandAdminAuthon extends CommandCompat {
                     commandExecutor.displayChatMessage("§cError: Player already registered!");
                     return;
                 }
-                if (!AuthonServer.isPasswordSuitable(args[3])) {
-                    commandExecutor.displayChatMessage("§cError: Password is too short!");
+                if (!GameUtils.isPasswordSuitable(args[3])) {
+                    commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_password_short);
                     return;
                 }
 
@@ -49,7 +50,7 @@ public class CommandAdminAuthon extends CommandCompat {
                 if (AuthonServer.getStorage().savePlayer(container)) {
                     commandExecutor.displayChatMessage("Successfully registered user!");
                 } else {
-                    commandExecutor.displayChatMessage("Errored while fucking");
+                    commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_db_unexpected);
                 }
 
                 return;
@@ -73,7 +74,7 @@ public class CommandAdminAuthon extends CommandCompat {
                         player.kick("Your unregistered!");
                     }
                 } else {
-                    commandExecutor.displayChatMessage("Errored while fucking");
+                    commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_db_unexpected);
                 }
 
                 return;
@@ -89,7 +90,7 @@ public class CommandAdminAuthon extends CommandCompat {
                     commandExecutor.displayChatMessage("§cError: Player bot found!");
                     return;
                 }
-                if (!AuthonServer.isPasswordSuitable(args[3])) {
+                if (!GameUtils.isPasswordSuitable(args[3])) {
                     commandExecutor.displayChatMessage("§cError: Password is too short!");
                     return;
                 }
@@ -101,7 +102,7 @@ public class CommandAdminAuthon extends CommandCompat {
                 if (AuthonServer.getStorage().updatePassword(player)) {
                     commandExecutor.displayChatMessage("Successfully changed pwd!");
                 } else {
-                    commandExecutor.displayChatMessage("Errored while fucking");
+                    commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_db_unexpected);
                 }
                 return;
             }
