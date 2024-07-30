@@ -6,7 +6,8 @@ import org.jetbrains.annotations.Nullable;
 public interface IStorage {
     boolean isPlayerPresent(@NotNull String username);
 
-    @Nullable PlayerContainer getPlayer(@NotNull String username);
+    @Nullable
+    PlayerContainer getPlayer(@NotNull String username);
 
     boolean savePlayer(@NotNull PlayerContainer player);
 

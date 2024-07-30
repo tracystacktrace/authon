@@ -29,7 +29,7 @@ public class PassEncryption {
     }
 
     public @Nullable String getHash(@NotNull String s) {
-        if(s == null || s.isEmpty()) {
+        if(s.isEmpty()) {
             return null;
         }
 

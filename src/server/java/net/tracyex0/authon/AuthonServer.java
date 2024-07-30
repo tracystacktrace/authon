@@ -3,10 +3,11 @@ package net.tracyex0.authon;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
+import net.minecraft.src.game.entity.player.EntityPlayer;
+import net.tracyex0.authon.misc.IPlayerAuth;
 import org.jetbrains.annotations.NotNull;
 
 import com.fox2code.foxloader.loader.Mod;
@@ -29,7 +30,7 @@ public class AuthonServer extends Mod {
     private static IStorage STORAGE;
     private static PassEncryption ENCRYPTOR;
 
-    private static ScheduledExecutorService SHITTY_EXECUTOR = Executors.newScheduledThreadPool(8);
+    private static final ScheduledExecutorService SHITTY_EXECUTOR = Executors.newScheduledThreadPool(8);
 
     @Override
     public void onPreInit() {
@@ -40,9 +41,8 @@ public class AuthonServer extends Mod {
         try {
             ENCRYPTOR = new PassEncryption();
         } catch(NoSuchAlgorithmException e) {
-            throw new RuntimeException("eww", e);
+            throw new RuntimeException("SHA-256 is not supported in this environment! Aborting!", e);
         }
-
 
         CommandCompat.registerCommand(new CommandAdminAuthon());
         CommandCompat.registerCommand(new CommandRegister());
@@ -61,20 +61,31 @@ public class AuthonServer extends Mod {
         return s.length() >= 8;
     }
 
-    public static void initPlayerAuth(@NotNull EntityPlayerMP player) {
-        if(AuthonServer.getStorage().isPlayerPresent(player.username)) {
-            player.displayChatMessage("Please authorize in this server!");
-        }else {
-            player.displayChatMessage("Please register in this server!");
-        }
+    public static void screamAtPlayer(@NotNull EntityPlayer player) {
+        if(!(player instanceof EntityPlayerMP)) return;
+        if(!((IPlayerAuth)player).hasTimeCome()) return;
 
+        EntityPlayerMP playerMP = (EntityPlayerMP) player;
+
+        playerMP.displayChatMessage(
+                AuthonServer.getStorage().isPlayerPresent(player.username) ?
+                        AuthonServer.CONFIG.local_login_notification :
+                        AuthonServer.CONFIG.local_register_notification
+        );
+
+        ((IPlayerAuth)player).setChatTimeout(100);
+    }
+
+    public static void initPlayerAuth(@NotNull EntityPlayerMP player) {
         SHITTY_EXECUTOR.schedule(() -> {
             final String usnm_const = player.username;
             EntityPlayerMP player1 = MinecraftServer.getInstance().configManager.getPlayerEntity(usnm_const);
             if(player1 == null) {
                 return;
             }
-            player1.kick("Too much time!");
-        }, 30, TimeUnit.SECONDS);
+            if(!((IPlayerAuth)player).isAuthenticated()) {
+                player1.kick(AuthonServer.CONFIG.local_auth_kick);
+            }
+        }, CONFIG.waitingTime, TimeUnit.SECONDS);
     }
 }

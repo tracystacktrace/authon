@@ -18,11 +18,17 @@ public class MixinNetLoginHandler {
             target = "Lnet/minecraft/src/game/entity/player/EntityPlayerMP;func_20057_k()V",
             shift = At.Shift.AFTER
     ))
-    private void authon$input_message(
+    private void authon$init_auth_chat(
             Packet1Login packet1Login,
             CallbackInfo ci,
             @Local EntityPlayerMP player
     ) {
         AuthonServer.initPlayerAuth(player);
+        //TODO: Adding a player to the cache system
+    }
+
+    @Inject(method = "handleErrorMessage", at = @At("TAIL"))
+    private void authon$make_sure(String arg1, Object[] args, CallbackInfo ci) {
+        //TODO: Measurements to safe player from cache
     }
 }
