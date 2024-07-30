@@ -1,11 +1,8 @@
-# Fox Loader Example Mod
+# AuthOn
+A FoxLoader server mod designed to blah-blah-blah auth blah user-friendly
 
-Example mod for [FoxLoader](https://github.com/Fox2Code/FoxLoader)
+In a nutshell, an auth mod (like AuthMe or OpeNLogin), but for rind. thats all
 
-Rat block texture by [@silveros](https://github.com/silverosre)
+TODO: Rewrite stuff to be more appealing
 
-## Documentation
-
-For mixins usage check here: https://github.com/2xsaiko/mixin-cheatsheet
-
-For spark usage check here: https://spark.lucko.me/docs/Command-Usage
+TODO: Add russian description (y'know, they love this kind of stuff :P не в обиду)

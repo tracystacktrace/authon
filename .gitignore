@@ -13,3 +13,5 @@
 /.classpath
 
 *.hprof
+
+.vscode/
