@@ -51,15 +51,19 @@ waitingTime=30
 
 # Instantly kick on first faulty attempt
 instantKick=true
+
+# Allows IP sessions in a server
+allowsSessions=false
 ```
 
 ## TODO
 
-- [ ] Fix the log leaking bug (happens when log saves commands history).
+- [X] Fix the log leaking bug (happens when log saves commands history).
+- [X] Make sessions a toggleable feature.
 - [ ] Introduce an ability to connect to a distant MySQL or SQL servers.
 - [ ] Make stuff compatible with ReIndev 2.9 (when it releases).
 - [X] Meow? Mrow mrrrrp :3
 
 ## License
 
-The mod is licensed under [LGPL-3.0](https://codeberg.org/tracystacktrace/authon/src/branch/main/LICENSE). Follow the license and you'll be ok!
+The mod is licensed under [LGPL-3.0-or-later](https://codeberg.org/tracystacktrace/authon/src/branch/main/LICENSE). Follow the license and you'll be ok!

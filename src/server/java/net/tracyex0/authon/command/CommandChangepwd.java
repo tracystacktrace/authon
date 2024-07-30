@@ -19,7 +19,7 @@ public class CommandChangepwd extends CommandCompat {
     @Override
     public void onExecute(String[] args, NetworkPlayer commandExecutor) {
         if (args.length < 3) {
-            commandExecutor.displayChatMessage("§cInfo: /changepwd <old password> <new password>");
+            commandExecutor.displayChatMessage(String.format(AuthonServer.CONFIG.local_command_usage, this.commandSyntax()));
             return;
         }
 
@@ -45,12 +45,10 @@ public class CommandChangepwd extends CommandCompat {
             return;
         }
 
-        playerContainer.setHash(
-                AuthonServer.getEncryption().getHash(args[2])
-        );
+        playerContainer.setHash(AuthonServer.getEncryption().getHash(args[2]));
 
         if (AuthonServer.getStorage().updatePassword(playerContainer)) {
-            commandExecutor.displayChatMessage("Successfully!");
+            commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_changepwd_success);
         } else {
             commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_db_unexpected);
         }

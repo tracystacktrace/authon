@@ -36,7 +36,7 @@ public class CommandAdminAuthon extends CommandCompat {
                 }
                 String username = args[2];
                 if (AuthonServer.getStorage().isPlayerPresent(username)) {
-                    commandExecutor.displayChatMessage("§cError: Player already registered!");
+                    commandExecutor.displayChatMessage(String.format(AuthonServer.CONFIG.local_op_register_already, username));
                     return;
                 }
                 if (!GameUtils.isPasswordSuitable(args[3])) {
@@ -48,7 +48,7 @@ public class CommandAdminAuthon extends CommandCompat {
                 PlayerContainer container = new PlayerContainer(username, hash, "");
 
                 if (AuthonServer.getStorage().savePlayer(container)) {
-                    commandExecutor.displayChatMessage("Successfully registered user!");
+                    commandExecutor.displayChatMessage(String.format(AuthonServer.CONFIG.local_op_register_success, username));
                 } else {
                     commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_db_unexpected);
                 }
@@ -58,20 +58,20 @@ public class CommandAdminAuthon extends CommandCompat {
 
             case "unregister": {
                 if (args.length < 3) {
-                    commandExecutor.displayChatMessage("§cError: Invalid syntax! Use /authon unregister <username>");
+                    commandExecutor.displayChatMessage(String.format(AuthonServer.CONFIG.local_command_invalid, "/authon unregister <username>"));
                     return;
                 }
                 String username = args[2];
                 if (!AuthonServer.getStorage().isPlayerPresent(username)) {
-                    commandExecutor.displayChatMessage("§cError: Player bot found!");
+                    commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_op_player_lack);
                     return;
                 }
 
                 if (AuthonServer.getStorage().deletePlayer(username)) {
-                    commandExecutor.displayChatMessage("Successfully executed!");
+                    commandExecutor.displayChatMessage(String.format(AuthonServer.CONFIG.local_op_unregister_success, username));
                     EntityPlayerMP player = MinecraftServer.getInstance().configManager.getPlayerEntity(username);
                     if (player != null) {
-                        player.kick("Your unregistered!");
+                        player.kick(AuthonServer.CONFIG.local_bridge_kick_unregister);
                     }
                 } else {
                     commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_db_unexpected);
@@ -82,25 +82,31 @@ public class CommandAdminAuthon extends CommandCompat {
 
             case "changepwd": {
                 if (args.length < 4) {
-                    commandExecutor.displayChatMessage("§cError: Invalid syntax! Use /authon changepwd <username> <password>");
+                    commandExecutor.displayChatMessage(String.format(AuthonServer.CONFIG.local_command_invalid, "/authon changepwd <username> <password>"));
                     return;
                 }
                 String username = args[2];
                 if (!AuthonServer.getStorage().isPlayerPresent(username)) {
-                    commandExecutor.displayChatMessage("§cError: Player bot found!");
+                    commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_op_player_lack);
                     return;
                 }
                 if (!GameUtils.isPasswordSuitable(args[3])) {
-                    commandExecutor.displayChatMessage("§cError: Password is too short!");
+                    commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_password_short);
                     return;
                 }
 
                 String hash = AuthonServer.getEncryption().getHash(args[3]);
                 PlayerContainer player = AuthonServer.getStorage().getPlayer(username);
+
+                if(player == null) {
+                    commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_db_unexpected);
+                    return;
+                }
+
                 player.setHash(hash);
 
                 if (AuthonServer.getStorage().updatePassword(player)) {
-                    commandExecutor.displayChatMessage("Successfully changed pwd!");
+                    commandExecutor.displayChatMessage(String.format(AuthonServer.CONFIG.local_op_changepwd_success, username));
                 } else {
                     commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_db_unexpected);
                 }

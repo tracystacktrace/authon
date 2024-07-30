@@ -5,7 +5,9 @@ import net.minecraft.src.game.entity.player.EntityPlayerMP;
 import net.minecraft.src.server.packets.NetLoginHandler;
 import net.minecraft.src.server.packets.NetServerHandler;
 import net.minecraft.src.server.packets.Packet1Login;
+import net.tracyex0.authon.AuthonServer;
 import net.tracyex0.authon.misc.GameUtils;
+import net.tracyex0.authon.misc.IPlayerAuth;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -24,8 +26,12 @@ public class MixinNetLoginHandler {
             @Local EntityPlayerMP player,
             @Local NetServerHandler netServerHandler
     ) {
-        GameUtils.initPlayerAuth(player);
-        //TODO: Adding a player to the cache system
+        if(GameUtils.checkSession(player)) {
+            player.displayChatMessage(AuthonServer.CONFIG.local_session_success);
+            ((IPlayerAuth)player).setAuthenticated(true);
+        }else {
+            GameUtils.initPlayerAuth(player);
+        }
     }
 
     @Inject(method = "handleErrorMessage", at = @At("TAIL"))

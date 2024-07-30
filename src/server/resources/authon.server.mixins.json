@@ -8,6 +8,7 @@
     "MixinEntityPlayerMP",
     "MixinNetLoginHandler",
     "MixinNetServerHandler",
+    "MixinPlayerCommandHandler",
     "MixinPlayerController"
   ]
 }

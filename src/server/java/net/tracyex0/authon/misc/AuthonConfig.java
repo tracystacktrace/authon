@@ -10,6 +10,9 @@ public class AuthonConfig {
     @ConfigEntry(configName = "Instantly kick on first faulty attempt")
     public boolean instantKick = true;
 
+    @ConfigEntry(configName = "Allows IP sessions in a server")
+    public boolean allowsSessions = false;
+
     /* Translation (localization) config fields */
 
     @ConfigEntry(configName = "local_login_notification")
@@ -44,4 +47,34 @@ public class AuthonConfig {
 
     @ConfigEntry(configName = "local_command_invalid")
     public String local_command_invalid = "§cInvalid syntax! Use %s";
+
+    @ConfigEntry(configName = "local_session_success")
+    public String local_session_success = "§6AuthOn: §aUsing session to auth, success!";
+
+    @ConfigEntry(configName = "local_register_success")
+    public String local_register_success = "§6AuthOn: §aSuccessfully registered! Welcome to the server!";
+
+    @ConfigEntry(configName = "local_register_already")
+    public String local_register_already = "§6AuthOn: §cAlready registered!";
+
+    @ConfigEntry(configName = "local_changepwd_success")
+    public String local_changepwd_success = "§6AuthOn: §aSuccessfully changed password!";
+
+    @ConfigEntry(configName = "local_op_register_already")
+    public String local_op_register_already = "§6AuthOn: §cThe user %s is already registered!";
+
+    @ConfigEntry(configName = "local_op_register_success")
+    public String local_op_register_success = "§6AuthOn: §aSuccessfully registered user %s!";
+
+    @ConfigEntry(configName = "local_op_player_lack")
+    public String local_op_player_lack = "§6AuthOn: §cPlayer not found!";
+
+    @ConfigEntry(configName = "local_op_unregister_success")
+    public String local_op_unregister_success = "§6AuthOn: §aSuccessfully unregistered user %s!";
+
+    @ConfigEntry(configName = "local_op_changepwd_success")
+    public String local_op_changepwd_success = "§6AuthOn: §aSuccessfully changed %s's password!";
+
+    @ConfigEntry(configName = "local_bridge_kick_unregister")
+    public String local_bridge_kick_unregister = "§cAuthOn: You have been unregistered!";
 }

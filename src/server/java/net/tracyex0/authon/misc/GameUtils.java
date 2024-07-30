@@ -5,6 +5,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.game.entity.player.EntityPlayerMP;
 import net.minecraft.src.server.packets.NetServerHandler;
 import net.tracyex0.authon.AuthonServer;
+import net.tracyex0.authon.storage.PlayerContainer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.TimeUnit;
@@ -42,5 +43,13 @@ public class GameUtils {
 
     public static @NotNull String getIPAddress(@NotNull NetworkPlayer player) {
         return ((NetServerHandler) player.getNetworkConnection()).netManager.getSocket().getInetAddress().getHostAddress();
+    }
+
+    public static boolean checkSession(@NotNull EntityPlayerMP player) {
+        PlayerContainer playerContainer = AuthonServer.getStorage().getPlayer(player.username);
+        if(playerContainer == null) {
+            return false;
+        }
+        return getIPAddress(player).equals(playerContainer.getIp());
     }
 }

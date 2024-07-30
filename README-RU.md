@@ -52,8 +52,11 @@ waitingTime=30
 
 # Кикать игрока с первой же неудачной попытки
 instantKick=true
+
+# Включает систему сессии с IP адрессами
+allowsSessions=false
 ```
 
 ## License
 
-Данный мод имеет лицензию [LGPL-3.0](https://codeberg.org/tracystacktrace/authon/src/branch/main/LICENSE). Просто следуйте документу и все будет ок!
+Данный мод имеет лицензию [LGPL-3.0-or-later](https://codeberg.org/tracystacktrace/authon/src/branch/main/LICENSE). Просто следуйте документу и все будет ок!

@@ -22,17 +22,17 @@ public class CommandRegister extends CommandCompat {
     public void onExecute(String[] args, NetworkPlayer commandExecutor) {
         IPlayerAuth auth = (IPlayerAuth) commandExecutor;
         if (auth.isAuthenticated()) {
-            commandExecutor.displayChatMessage("Error: Already logged in!");
+            commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_login_already);
             return;
         }
 
         if (AuthonServer.getStorage().isPlayerPresent(commandExecutor.getPlayerName())) {
-            commandExecutor.displayChatMessage("Error: Already registered!");
+            commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_register_already);
             return;
         }
 
         if (args.length < 2) {
-            commandExecutor.displayChatMessage("Usage: /register <password>");
+            commandExecutor.displayChatMessage(String.format(AuthonServer.CONFIG.local_command_usage, this.commandSyntax()));
             return;
         }
 
@@ -49,12 +49,11 @@ public class CommandRegister extends CommandCompat {
         PlayerContainer player = new PlayerContainer(commandExecutor.getPlayerName(), hash, ip);
 
         if (AuthonServer.getStorage().savePlayer(player)) {
-            commandExecutor.displayChatMessage("Successfully registered! Welcome to the server!");
+            commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_register_success);
             auth.setAuthenticated(true);
         } else {
-            commandExecutor.displayChatMessage("Error while registering!");
+            commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_db_unexpected);
         }
-        return;
     }
 
 }
