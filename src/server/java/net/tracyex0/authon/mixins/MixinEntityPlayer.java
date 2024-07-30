@@ -11,12 +11,12 @@ public abstract class MixinEntityPlayer implements IPlayerAuth {
     private boolean authon$isAuthenticated = false;
 
     @Override
-    public void setAuthenticated(boolean b) {
-        this.authon$isAuthenticated = b;
+    public boolean isAuthenticated() {
+        return this.authon$isAuthenticated;
     }
 
     @Override
-    public boolean isAuthenticated() {
-        return this.authon$isAuthenticated;
+    public void setAuthenticated(boolean b) {
+        this.authon$isAuthenticated = b;
     }
 }

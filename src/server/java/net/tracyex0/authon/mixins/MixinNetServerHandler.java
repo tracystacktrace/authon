@@ -19,24 +19,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  */
 @Mixin(NetServerHandler.class)
 public abstract class MixinNetServerHandler {
-    @Shadow private EntityPlayerMP playerEntity;
-
-    @Shadow public abstract void teleportTo(double arg1, double arg3, double arg5, float arg7, float arg8);
-
+    @Shadow
+    private EntityPlayerMP playerEntity;
     @Unique
     private TemporaryTape authon$temp_solution;
 
-//    @Inject(method = "handleMovementTypePacket", at = @At("HEAD"), cancellable = true)
-//    private void authon$cancel_movement(Packet27Position packet27Position, CallbackInfo ci) {
-//        if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
-//            AuthonServer.screamAtPlayer(this.playerEntity);
-//            ci.cancel();
-//        }
-//    }
+    @Shadow
+    public abstract void teleportTo(double arg1, double arg3, double arg5, float arg7, float arg8);
 
     @Inject(method = "sendPacket", at = @At("HEAD"), cancellable = true)
     private void authon$cause_chaos(Packet packet, CallbackInfo ci) {
-        if(!((IPlayerAuth)this.playerEntity).isAuthenticated() && packet instanceof Packet5PlayerInventory) {
+        if (!((IPlayerAuth) this.playerEntity).isAuthenticated() && packet instanceof Packet5PlayerInventory) {
             ci.cancel();
         }
     }
@@ -58,13 +51,13 @@ public abstract class MixinNetServerHandler {
     @Inject(method = "handleFlying", at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/server/MinecraftServer;getWorldManager(I)Lnet/minecraft/src/game/level/WorldServer;",
-    shift = At.Shift.AFTER))
+            shift = At.Shift.AFTER))
     private void authon$cancel_creative_fly(
             Packet10Flying packet10Flying,
             CallbackInfo ci
     ) {
         if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
-            if(authon$temp_solution == null) {
+            if (authon$temp_solution == null) {
                 authon$temp_solution = new TemporaryTape(this.playerEntity);
             }
             teleportTo(
@@ -74,7 +67,7 @@ public abstract class MixinNetServerHandler {
                     authon$temp_solution.yaw,
                     authon$temp_solution.pitch
             );
-        }else if(authon$temp_solution != null) {
+        } else if (authon$temp_solution != null) {
             authon$temp_solution = null;
         }
     }
@@ -118,7 +111,7 @@ public abstract class MixinNetServerHandler {
     private void authon$cancel_chat(Packet3Chat packet3Chat, CallbackInfo ci) {
         if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
             String message = packet3Chat.message;
-            if(!message.startsWith("/login") && !message.startsWith("/register")) {
+            if (!message.startsWith("/login") && !message.startsWith("/register")) {
                 AuthonServer.informPlayer(this.playerEntity);
                 ci.cancel();
             }

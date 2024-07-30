@@ -22,14 +22,14 @@ public class PassEncryption {
         sha256eater.reset();
         byte[] bytes = sha256eater.digest(s.getBytes(StandardCharsets.US_ASCII));
         StringBuilder builder = new StringBuilder();
-		for(int b : bytes) {
+        for (int b : bytes) {
             builder.append(Integer.toString((b & 0xFF) + 256, 16).substring(1));
         }
-		return builder.toString();
+        return builder.toString();
     }
 
     public @Nullable String getHash(@NotNull String s) {
-        if(s.isEmpty()) {
+        if (s.isEmpty()) {
             return null;
         }
 
@@ -37,7 +37,7 @@ public class PassEncryption {
         Random random = new Random();
         random.setSeed(s.getBytes(StandardCharsets.US_ASCII)[0]);
         String salt = "";
-        for(int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++) {
             salt += random.nextInt(0xFFFFFF);
         }
 
@@ -46,10 +46,10 @@ public class PassEncryption {
     }
 
     public boolean compareHash(
-        @Nullable String supposed,
-        @Nullable String hash
+            @Nullable String supposed,
+            @Nullable String hash
     ) {
-        if(supposed == null || hash == null || supposed.isEmpty() || hash.isEmpty()) {
+        if (supposed == null || hash == null || supposed.isEmpty() || hash.isEmpty()) {
             return false;
         }
 

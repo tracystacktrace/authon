@@ -8,9 +8,9 @@ public class PlayerContainer {
     private String ip;
 
     public PlayerContainer(
-        String username,
-        String hash,
-        String ip
+            String username,
+            String hash,
+            String ip
     ) {
         this.username = username;
         this.hash = hash;
@@ -21,24 +21,24 @@ public class PlayerContainer {
         return username;
     }
 
-    public String getHash() {
-        return hash;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getIp() {
-        return ip;
+    public String getHash() {
+        return hash;
     }
 
     public void setHash(String hash) {
         this.hash = hash;
     }
 
-    public void setIp(String ip) {
-        this.ip = ip;
+    public String getIp() {
+        return ip;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class PlayerContainer {
 
     @Override
     public boolean equals(Object obj) {
-        if( !(obj instanceof PlayerContainer) ) {
+        if (!(obj instanceof PlayerContainer)) {
             return false;
         }
         PlayerContainer another = (PlayerContainer) obj;

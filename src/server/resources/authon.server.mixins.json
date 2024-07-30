@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "MixinEntityPlayer",
+    "MixinEntityPlayerMP",
     "MixinNetLoginHandler",
     "MixinNetServerHandler",
     "MixinPlayerController"

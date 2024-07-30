@@ -5,6 +5,7 @@ import com.fox2code.foxloader.registry.CommandCompat;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.game.entity.player.EntityPlayerMP;
 import net.tracyex0.authon.command.CommandAdminAuthon;
+import net.tracyex0.authon.command.CommandChangepwd;
 import net.tracyex0.authon.command.CommandLogin;
 import net.tracyex0.authon.command.CommandRegister;
 import net.tracyex0.authon.misc.AuthonConfig;
@@ -18,33 +19,12 @@ import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
 
 public class AuthonServer extends Mod {
     public static final AuthonConfig CONFIG = new AuthonConfig();
-    public static final Logger LOGGER = Logger.getLogger("AuthOn");
-
+    private static final ScheduledExecutorService SHITTY_EXECUTOR = Executors.newScheduledThreadPool(8);
     private static IStorage STORAGE;
     private static PassEncryption ENCRYPTOR;
-
-    private static final ScheduledExecutorService SHITTY_EXECUTOR = Executors.newScheduledThreadPool(8);
-
-    @Override
-    public void onPreInit() {
-        setConfigObject(CONFIG);
-
-        STORAGE = new H2Database();
-
-        try {
-            ENCRYPTOR = new PassEncryption();
-        } catch(NoSuchAlgorithmException e) {
-            throw new RuntimeException("SHA-256 is not supported in this environment! Aborting!", e);
-        }
-
-        CommandCompat.registerCommand(new CommandAdminAuthon());
-        CommandCompat.registerCommand(new CommandRegister());
-        CommandCompat.registerCommand(new CommandLogin());
-    }
 
     public static IStorage getStorage() {
         return STORAGE;
@@ -54,6 +34,10 @@ public class AuthonServer extends Mod {
         return ENCRYPTOR;
     }
 
+    /**
+     * @deprecated May be changed
+     */
+    @Deprecated
     public static boolean isPasswordSuitable(@NotNull String s) {
         return s.length() >= 8;
     }
@@ -71,12 +55,30 @@ public class AuthonServer extends Mod {
         SHITTY_EXECUTOR.schedule(() -> {
             final String usnm_const = player.username;
             EntityPlayerMP player1 = MinecraftServer.getInstance().configManager.getPlayerEntity(usnm_const);
-            if(player1 == null) {
+            if (player1 == null) {
                 return;
             }
-            if(!((IPlayerAuth)player1).isAuthenticated()) {
+            if (!((IPlayerAuth) player1).isAuthenticated()) {
                 player1.kick(AuthonServer.CONFIG.local_auth_kick);
             }
         }, CONFIG.waitingTime, TimeUnit.SECONDS);
+    }
+
+    @Override
+    public void onPreInit() {
+        setConfigObject(CONFIG);
+
+        STORAGE = new H2Database();
+
+        try {
+            ENCRYPTOR = new PassEncryption();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("SHA-256 is not supported in this environment! Aborting!", e);
+        }
+
+        CommandCompat.registerCommand(new CommandAdminAuthon());
+        CommandCompat.registerCommand(new CommandRegister());
+        CommandCompat.registerCommand(new CommandLogin());
+        CommandCompat.registerCommand(new CommandChangepwd());
     }
 }

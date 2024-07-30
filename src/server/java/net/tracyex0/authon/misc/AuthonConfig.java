@@ -37,8 +37,11 @@ public class AuthonConfig {
     public String local_login_success = "§6AuthOn: §aSuccessfully logged in! Welcome back!";
 
     @ConfigEntry(configName = "local_db_unexpected")
-    public String local_db_unexpected = "§6AuthOn: §cAn error occurred while retrieving your data! Please contact administration!";
+    public String local_db_unexpected = "§6AuthOn: §cA DB access error occurred while processing!";
 
     @ConfigEntry(configName = "local_password_wrong")
     public String local_password_wrong = "§6AuthOn: §cWrong password!";
+
+    @ConfigEntry(configName = "local_password_short")
+    public String local_password_short = "§6AuthOn: §cPassword too short!";
 }

@@ -13,39 +13,45 @@ public class CommandLogin extends CommandCompat {
         super("login", false);
     }
 
+    @Override
+    public String commandSyntax() {
+        return "§e/login <password>";
+    }
+
+    @Override
     public void onExecute(String[] args, NetworkPlayer commandExecutor) {
         IPlayerAuth auth = (IPlayerAuth) commandExecutor;
-        if(auth.isAuthenticated()) {
+        if (auth.isAuthenticated()) {
             commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_login_already);
             return;
         }
 
-        if(!AuthonServer.getStorage().isPlayerPresent(commandExecutor.getPlayerName())) {
+        if (!AuthonServer.getStorage().isPlayerPresent(commandExecutor.getPlayerName())) {
             commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_not_registered);
             return;
         }
 
-        if(args.length < 2) {
+        if (args.length < 2) {
             commandExecutor.displayChatMessage("Usage: /login <password>");
             return;
         }
 
         PlayerContainer playerContainer = AuthonServer.getStorage().getPlayer(commandExecutor.getPlayerName());
 
-        if(playerContainer == null) {
+        if (playerContainer == null) {
             commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_db_unexpected);
             return;
         }
 
-        if(AuthonServer.getEncryption().compareHash(args[1], playerContainer.getHash())) {
+        if (AuthonServer.getEncryption().compareHash(args[1], playerContainer.getHash())) {
             commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_login_success);
             auth.setAuthenticated(true);
-            String ip = ((NetServerHandler)commandExecutor.getNetworkConnection()).netManager.getSocket().getInetAddress().getHostAddress();
+            String ip = ((NetServerHandler) commandExecutor.getNetworkConnection()).netManager.getSocket().getInetAddress().getHostAddress();
             playerContainer.setIp(ip);
             AuthonServer.getStorage().updateIPAdress(playerContainer);
-        }else {
+        } else {
             commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_password_wrong);
-            if(AuthonServer.CONFIG.instantKick) {
+            if (AuthonServer.CONFIG.instantKick) {
                 commandExecutor.kick(AuthonServer.CONFIG.local_password_wrong);
             }
         }

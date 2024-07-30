@@ -13,8 +13,14 @@ public class CommandAdminAuthon extends CommandCompat {
         super("authon", true, false, NO_ALIASES, Boolean.TRUE);
     }
 
+    @Override
+    public String commandSyntax() {
+        return "§e/authon register|changepwd|unregister <username> <password>";
+    }
+
+    @Override
     public void onExecute(String[] args, RegisteredCommandSender commandExecutor) {
-        if(args.length < 2) {
+        if (args.length < 2) {
             commandExecutor.displayChatMessage("§cInfo: /authon register <username> <password>");
             commandExecutor.displayChatMessage("§cInfo: /authon changepwd <username> <password>");
             commandExecutor.displayChatMessage("§cInfo: /authon unregister <username>");
@@ -23,16 +29,16 @@ public class CommandAdminAuthon extends CommandCompat {
 
         switch (args[1]) {
             case "register": {
-                if(args.length < 4) {
+                if (args.length < 4) {
                     commandExecutor.displayChatMessage("§cError: Invalid syntax! Use /authon register <username> <password>");
                     return;
                 }
                 String username = args[2];
-                if(AuthonServer.getStorage().isPlayerPresent(username)) {
+                if (AuthonServer.getStorage().isPlayerPresent(username)) {
                     commandExecutor.displayChatMessage("§cError: Player already registered!");
                     return;
                 }
-                if(!AuthonServer.isPasswordSuitable(args[3])) {
+                if (!AuthonServer.isPasswordSuitable(args[3])) {
                     commandExecutor.displayChatMessage("§cError: Password is too short!");
                     return;
                 }
@@ -40,9 +46,9 @@ public class CommandAdminAuthon extends CommandCompat {
                 String hash = AuthonServer.getEncryption().getHash(args[3]);
                 PlayerContainer container = new PlayerContainer(username, hash, "");
 
-                if(AuthonServer.getStorage().savePlayer(container)) {
+                if (AuthonServer.getStorage().savePlayer(container)) {
                     commandExecutor.displayChatMessage("Successfully registered user!");
-                }else {
+                } else {
                     commandExecutor.displayChatMessage("Errored while fucking");
                 }
 
@@ -50,23 +56,23 @@ public class CommandAdminAuthon extends CommandCompat {
             }
 
             case "unregister": {
-                if(args.length < 3) {
+                if (args.length < 3) {
                     commandExecutor.displayChatMessage("§cError: Invalid syntax! Use /authon unregister <username>");
                     return;
                 }
                 String username = args[2];
-                if(!AuthonServer.getStorage().isPlayerPresent(username)) {
+                if (!AuthonServer.getStorage().isPlayerPresent(username)) {
                     commandExecutor.displayChatMessage("§cError: Player bot found!");
                     return;
                 }
 
-                if(AuthonServer.getStorage().deletePlayer(username)) {
+                if (AuthonServer.getStorage().deletePlayer(username)) {
                     commandExecutor.displayChatMessage("Successfully executed!");
                     EntityPlayerMP player = MinecraftServer.getInstance().configManager.getPlayerEntity(username);
-                    if(player != null) {
+                    if (player != null) {
                         player.kick("Your unregistered!");
                     }
-                }else {
+                } else {
                     commandExecutor.displayChatMessage("Errored while fucking");
                 }
 
@@ -74,16 +80,16 @@ public class CommandAdminAuthon extends CommandCompat {
             }
 
             case "changepwd": {
-                if(args.length < 4) {
+                if (args.length < 4) {
                     commandExecutor.displayChatMessage("§cError: Invalid syntax! Use /authon changepwd <username> <password>");
                     return;
                 }
                 String username = args[2];
-                if(!AuthonServer.getStorage().isPlayerPresent(username)) {
+                if (!AuthonServer.getStorage().isPlayerPresent(username)) {
                     commandExecutor.displayChatMessage("§cError: Player bot found!");
                     return;
                 }
-                if(!AuthonServer.isPasswordSuitable(args[3])) {
+                if (!AuthonServer.isPasswordSuitable(args[3])) {
                     commandExecutor.displayChatMessage("§cError: Password is too short!");
                     return;
                 }
@@ -92,7 +98,7 @@ public class CommandAdminAuthon extends CommandCompat {
                 PlayerContainer player = AuthonServer.getStorage().getPlayer(username);
                 player.setHash(hash);
 
-                if(AuthonServer.getStorage().updatePassword(player)) {
+                if (AuthonServer.getStorage().updatePassword(player)) {
                     commandExecutor.displayChatMessage("Successfully changed pwd!");
                 } else {
                     commandExecutor.displayChatMessage("Errored while fucking");
@@ -103,5 +109,5 @@ public class CommandAdminAuthon extends CommandCompat {
             default:
         }
     }
-    
+
 }
