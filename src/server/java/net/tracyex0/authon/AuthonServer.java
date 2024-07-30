@@ -7,6 +7,8 @@ import com.fox2code.foxloader.loader.Mod;
 import com.fox2code.foxloader.registry.CommandCompat;
 
 import net.tracyex0.authon.command.CommandAdminAuthon;
+import net.tracyex0.authon.command.CommandLogin;
+import net.tracyex0.authon.command.CommandRegister;
 import net.tracyex0.authon.misc.AuthonConfig;
 import net.tracyex0.authon.security.PassEncryption;
 import net.tracyex0.authon.storage.IStorage;
@@ -33,6 +35,8 @@ public class AuthonServer extends Mod {
 
 
         CommandCompat.registerCommand(new CommandAdminAuthon());
+        CommandCompat.registerCommand(new CommandRegister());
+        CommandCompat.registerCommand(new CommandLogin());
     }
 
     public static IStorage getStorage() {

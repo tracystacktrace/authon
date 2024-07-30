@@ -9,7 +9,7 @@ import net.tracyex0.authon.storage.PlayerContainer;
 public class CommandAdminAuthon extends CommandCompat {
 
     public CommandAdminAuthon() {
-        super("authon", true);
+        super("authon", true, false, NO_ALIASES, Boolean.TRUE);
     }
 
     public void onExecute(String[] args, NetworkPlayer commandExecutor) {
