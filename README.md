@@ -2,9 +2,9 @@
 
 [Russian README.md | Русскоязычное описание](https://codeberg.org/tracystacktrace/authon/src/branch/main/README-RU.md)
 
-AuthOn is a modification for FoxLoader (ReIndev) servers designed to implement an alternative authentification system.
+AuthOn is a modification for FoxLoader (ReIndev) servers designed to implement an alternative authentication system.
 
-The example of alternative auth systems in Bukkit world are AuthMe or OpeNLogin. AuthOn is exclusively developed for the FoxLoader (ReIndev) based platforms.
+Examples of alternative auth systems in Bukkit world are AuthMe and OpeNLogin. AuthOn is exclusively developed for the FoxLoader (ReIndev) based platforms.
 
 Uses H2 as a database system, seems to be pretty efficient and optimized solution.
 
