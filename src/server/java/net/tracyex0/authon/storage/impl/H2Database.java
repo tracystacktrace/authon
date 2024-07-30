@@ -1,16 +1,12 @@
 package net.tracyex0.authon.storage.impl;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Logger;
-
 import net.tracyex0.authon.storage.IStorage;
 import net.tracyex0.authon.storage.PlayerContainer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.sql.*;
+import java.util.logging.Logger;
 
 
 /**

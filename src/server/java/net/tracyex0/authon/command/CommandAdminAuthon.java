@@ -1,8 +1,9 @@
 package net.tracyex0.authon.command;
 
-import com.fox2code.foxloader.network.NetworkPlayer;
 import com.fox2code.foxloader.registry.CommandCompat;
-
+import com.fox2code.foxloader.registry.RegisteredCommandSender;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.src.game.entity.player.EntityPlayerMP;
 import net.tracyex0.authon.AuthonServer;
 import net.tracyex0.authon.storage.PlayerContainer;
 
@@ -12,11 +13,7 @@ public class CommandAdminAuthon extends CommandCompat {
         super("authon", true, false, NO_ALIASES, Boolean.TRUE);
     }
 
-    public void onExecute(String[] args, NetworkPlayer commandExecutor) {
-        if(!commandExecutor.isOperator()) {
-            return;
-        }
-
+    public void onExecute(String[] args, RegisteredCommandSender commandExecutor) {
         if(args.length < 2) {
             commandExecutor.displayChatMessage("§cInfo: /authon register <username> <password>");
             commandExecutor.displayChatMessage("§cInfo: /authon changepwd <username> <password>");
@@ -65,6 +62,10 @@ public class CommandAdminAuthon extends CommandCompat {
 
                 if(AuthonServer.getStorage().deletePlayer(username)) {
                     commandExecutor.displayChatMessage("Successfully executed!");
+                    EntityPlayerMP player = MinecraftServer.getInstance().configManager.getPlayerEntity(username);
+                    if(player != null) {
+                        player.kick("Your unregistered!");
+                    }
                 }else {
                     commandExecutor.displayChatMessage("Errored while fucking");
                 }
@@ -99,7 +100,7 @@ public class CommandAdminAuthon extends CommandCompat {
                 return;
             }
 
-            default: return;
+            default:
         }
     }
     

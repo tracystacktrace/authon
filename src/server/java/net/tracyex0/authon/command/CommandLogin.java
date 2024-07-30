@@ -2,7 +2,6 @@ package net.tracyex0.authon.command;
 
 import com.fox2code.foxloader.network.NetworkPlayer;
 import com.fox2code.foxloader.registry.CommandCompat;
-
 import net.minecraft.src.server.packets.NetServerHandler;
 import net.tracyex0.authon.AuthonServer;
 import net.tracyex0.authon.misc.IPlayerAuth;

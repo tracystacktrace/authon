@@ -1,27 +1,24 @@
 package net.tracyex0.authon;
 
-import java.security.NoSuchAlgorithmException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
-
-import net.minecraft.src.game.entity.player.EntityPlayer;
-import net.tracyex0.authon.misc.IPlayerAuth;
-import org.jetbrains.annotations.NotNull;
-
 import com.fox2code.foxloader.loader.Mod;
 import com.fox2code.foxloader.registry.CommandCompat;
-
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.game.entity.player.EntityPlayerMP;
 import net.tracyex0.authon.command.CommandAdminAuthon;
 import net.tracyex0.authon.command.CommandLogin;
 import net.tracyex0.authon.command.CommandRegister;
 import net.tracyex0.authon.misc.AuthonConfig;
+import net.tracyex0.authon.misc.IPlayerAuth;
 import net.tracyex0.authon.security.PassEncryption;
 import net.tracyex0.authon.storage.IStorage;
 import net.tracyex0.authon.storage.impl.H2Database;
+import org.jetbrains.annotations.NotNull;
+
+import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 public class AuthonServer extends Mod {
     public static final AuthonConfig CONFIG = new AuthonConfig();
@@ -61,29 +58,23 @@ public class AuthonServer extends Mod {
         return s.length() >= 8;
     }
 
-    public static void screamAtPlayer(@NotNull EntityPlayer player) {
-        if(!(player instanceof EntityPlayerMP)) return;
-        if(!((IPlayerAuth)player).hasTimeCome()) return;
-
-        EntityPlayerMP playerMP = (EntityPlayerMP) player;
-
-        playerMP.displayChatMessage(
+    public static void informPlayer(EntityPlayerMP player) {
+        player.displayChatMessage(
                 AuthonServer.getStorage().isPlayerPresent(player.username) ?
                         AuthonServer.CONFIG.local_login_notification :
                         AuthonServer.CONFIG.local_register_notification
         );
-
-        ((IPlayerAuth)player).setChatTimeout(100);
     }
 
     public static void initPlayerAuth(@NotNull EntityPlayerMP player) {
+        informPlayer(player);
         SHITTY_EXECUTOR.schedule(() -> {
             final String usnm_const = player.username;
             EntityPlayerMP player1 = MinecraftServer.getInstance().configManager.getPlayerEntity(usnm_const);
             if(player1 == null) {
                 return;
             }
-            if(!((IPlayerAuth)player).isAuthenticated()) {
+            if(!((IPlayerAuth)player1).isAuthenticated()) {
                 player1.kick(AuthonServer.CONFIG.local_auth_kick);
             }
         }, CONFIG.waitingTime, TimeUnit.SECONDS);
