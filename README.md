@@ -1,4 +1,7 @@
 # AuthOn
+
+[Russian README.md | Русскоязычное описание](https://codeberg.org/tracystacktrace/authon/src/branch/main/README-RU.md)
+
 AuthOn is a modification for FoxLoader (ReIndev) servers designed to implement an alternative authentification system.
 
 The example of alternative auth systems in Bukkit world are AuthMe or OpeNLogin. AuthOn is exclusively developed for the FoxLoader (ReIndev) based platforms.
@@ -9,9 +12,9 @@ Uses H2 as a database system, seems to be pretty efficient and optimized solutio
 
 ## Installation
 
-Simply get a release version of this mod and put it into `mods` folder.
+Simply get a `.jar` file from releases and put it into `mods` folder.
 
-You can get the latest release here
+[You can get the latest release here](https://codeberg.org/tracystacktrace/authon/releases)
 
 ## Commands
 
@@ -60,7 +63,7 @@ allowsSessions=false
 
 - [X] Fix the log leaking bug (happens when log saves commands history).
 - [X] Make sessions a toggleable feature.
-- [ ] Introduce an ability to connect to a distant MySQL or SQL servers.
+- [ ] Introduce an ability to connect to a remote MySQL or SQL servers.
 - [ ] Make stuff compatible with ReIndev 2.9 (when it releases).
 - [X] Meow? Mrow mrrrrp :3
 

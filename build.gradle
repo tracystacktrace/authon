@@ -22,11 +22,11 @@ foxloader {
     modId = "authon"
     modName = "AuthOn"
     modVersion = project.version
+    modWebsite = "https://codeberg.org/tracystacktrace/authon"
     modDesc = "A simple auth mod for FoxLoader servers"
     serverMod = "net.tracyex0.authon.AuthonServer"
     // Development tools don't like that both client and server define
     // the same classes, so uncomment to disable the side inclusion.
     includeClient = false
     // includeServer = false
-    // clientMod = "net.tracyex0.authon.AuthonClientCrasher"
 }
