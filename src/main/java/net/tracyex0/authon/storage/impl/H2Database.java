@@ -26,9 +26,11 @@ public class H2Database implements IStorage {
 
     public H2Database() {
         try {
+            Class.forName("org.h2.Driver");
             this.connection = DriverManager.getConnection("jdbc:h2:./authondb");
             this.setup();
-        }catch (SQLException e) {
+        }catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
             throw new RuntimeException("damn this H2 got fucked up a lil bit ngl");
         }
 
@@ -38,12 +40,13 @@ public class H2Database implements IStorage {
         PreparedStatement statement = connection.prepareStatement(
             "CREATE TABLE IF NOT EXISTS authon (id INTEGER AUTO_INCREMENT, username VARCHAR(20) NOT NULL, password VARCHAR(100) NOT NULL, ip VARCHAR(40) NOT NULL, CONSTRAINT authon_const_prim PRIMARY KEY (id));"
             );
-        statement.executeQuery();
+        statement.executeUpdate();
         statement.close();
     }
 
     @Override
     public synchronized boolean isPlayerPresent(@NotNull String username) {
+        LOGGER_DRIVER.info("isPlayerPresent(String) -> " + username);
         try(PreparedStatement statement = connection.prepareStatement("SELECT * FROM authon WHERE username=?;")) {
             statement.setString(1, username);
             ResultSet resultSet = statement.executeQuery();
@@ -56,6 +59,7 @@ public class H2Database implements IStorage {
 
     @Override
     public synchronized @Nullable PlayerContainer getPlayer(@NotNull String username) {
+        LOGGER_DRIVER.info("getPlayer(String) -> " + username);
         try(PreparedStatement statement = connection.prepareStatement("SELECT * FROM authon WHERE username=?;")) {
             statement.setString(1, username);
             ResultSet resultSet = statement.executeQuery();
@@ -76,6 +80,7 @@ public class H2Database implements IStorage {
 
     @Override
     public synchronized boolean savePlayer(@NotNull PlayerContainer player) {
+        LOGGER_DRIVER.info("savePlayer(PlayerContainer) -> " + player);
         try(PreparedStatement statement = connection.prepareStatement("INSERT INTO authon (username, password, ip) VALUES (?, ?, ?);")) {
             statement.setString(1, player.getUsername());
             statement.setString(2, player.getHash());

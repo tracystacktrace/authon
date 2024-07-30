@@ -53,7 +53,7 @@ public class PassEncryption {
             return false;
         }
 
-        return hash.equals(computeHash(supposed));
+        return hash.equals(getHash(supposed));
     }
 
 }

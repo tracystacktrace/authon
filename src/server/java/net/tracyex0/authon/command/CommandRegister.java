@@ -26,12 +26,12 @@ public class CommandRegister extends CommandCompat {
             return;
         }
 
-        if(args.length < 1) {
+        if(args.length < 2) {
             commandExecutor.displayChatMessage("Usage: /register <password>");
             return;
         }
 
-        String password = args[0];
+        String password = args[1];
 
         if(!AuthonServer.isPasswordSuitable(password)) {
             commandExecutor.displayChatMessage("Error: Password is too short!");
@@ -41,7 +41,7 @@ public class CommandRegister extends CommandCompat {
         String hash = AuthonServer.getEncryption().getHash(password);
         String ip = ((NetServerHandler)commandExecutor.getNetworkConnection()).netManager.getSocket().getInetAddress().getHostAddress();
 
-        PlayerContainer player = new PlayerContainer(password, hash, ip);
+        PlayerContainer player = new PlayerContainer(commandExecutor.getPlayerName(), hash, ip);
 
         if(AuthonServer.getStorage().savePlayer(player)) {
             commandExecutor.displayChatMessage("Successfully registered! Welcome to the server!");

@@ -54,4 +54,9 @@ public class PlayerContainer {
         PlayerContainer another = (PlayerContainer) obj;
         return another.username.equals(this.username) && another.ip.equals(this.ip);
     }
+
+    @Override
+    public String toString() {
+        return "Player " + this.username + " with IP " + this.ip;
+    }
 }

@@ -14,7 +14,7 @@ apply plugin: 'foxloader.dev'
 version '1.1.1'
 
 dependencies {
-    implementation 'com.h2database:h2:1.4.200'
+    serverImplementation 'com.h2database:h2:2.2.220'
 }
 
 foxloader {

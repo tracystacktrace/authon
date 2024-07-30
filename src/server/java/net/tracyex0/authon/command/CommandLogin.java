@@ -25,7 +25,7 @@ public class CommandLogin extends CommandCompat {
             return;
         }
 
-        if(args.length < 1) {
+        if(args.length < 2) {
             commandExecutor.displayChatMessage("Usage: /login <password>");
             return;
         }
@@ -37,7 +37,7 @@ public class CommandLogin extends CommandCompat {
             return;
         }
 
-        if(AuthonServer.getEncryption().compareHash(args[0], playerContainer.getHash())) {
+        if(AuthonServer.getEncryption().compareHash(args[1], playerContainer.getHash())) {
             commandExecutor.displayChatMessage("Succesffully logged in!");
             auth.setAuthenticated(true);
         }else {
