@@ -26,7 +26,7 @@ public class MixinNetLoginHandler {
             @Local EntityPlayerMP player,
             @Local NetServerHandler netServerHandler
     ) {
-        if(GameUtils.checkSession(player)) {
+        if(AuthonServer.CONFIG.allowsSessions && GameUtils.checkSession(player)) {
             player.displayChatMessage(AuthonServer.CONFIG.local_session_success);
             ((IPlayerAuth)player).setAuthenticated(true);
         }else {

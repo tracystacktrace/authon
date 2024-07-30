@@ -49,7 +49,7 @@ public class AuthonConfig {
     public String local_command_invalid = "§cInvalid syntax! Use %s";
 
     @ConfigEntry(configName = "local_session_success")
-    public String local_session_success = "§6AuthOn: §aUsing session to auth, success!";
+    public String local_session_success = "§6AuthOn: §aUsing session auth, welcome back!";
 
     @ConfigEntry(configName = "local_register_success")
     public String local_register_success = "§6AuthOn: §aSuccessfully registered! Welcome to the server!";
