@@ -31,7 +31,7 @@ public class CommandAdminAuthon extends CommandCompat {
                     return;
                 }
                 String username = args[1];
-                if(AuthonServer.STORAGE.isPlayerPresent(username)) {
+                if(AuthonServer.getStorage().isPlayerPresent(username)) {
                     commandExecutor.displayChatMessage("§cError: Player already registered!");
                     return;
                 }
@@ -40,10 +40,10 @@ public class CommandAdminAuthon extends CommandCompat {
                     return;
                 }
 
-                String hash = AuthonServer.ENCRYPTOR.getHash(args[2]);
+                String hash = AuthonServer.getEncryption().getHash(args[2]);
                 PlayerContainer container = new PlayerContainer(username, hash, "");
 
-                if(AuthonServer.STORAGE.savePlayer(container)) {
+                if(AuthonServer.getStorage().savePlayer(container)) {
                     commandExecutor.displayChatMessage("Successfully registered user!");
                 }else {
                     commandExecutor.displayChatMessage("Errored while fucking");
@@ -58,17 +58,17 @@ public class CommandAdminAuthon extends CommandCompat {
                     return;
                 }
                 String username = args[1];
-                if(!AuthonServer.STORAGE.isPlayerPresent(username)) {
+                if(!AuthonServer.getStorage().isPlayerPresent(username)) {
                     commandExecutor.displayChatMessage("§cError: Player bot found!");
                     return;
                 }
 
-                if(AuthonServer.STORAGE.deletePlayer(username)) {
+                if(AuthonServer.getStorage().deletePlayer(username)) {
                     commandExecutor.displayChatMessage("Successfully executed!");
                 }else {
                     commandExecutor.displayChatMessage("Errored while fucking");
                 }
-                
+
                 return;
             }
 
@@ -78,7 +78,7 @@ public class CommandAdminAuthon extends CommandCompat {
                     return;
                 }
                 String username = args[1];
-                if(!AuthonServer.STORAGE.isPlayerPresent(username)) {
+                if(!AuthonServer.getStorage().isPlayerPresent(username)) {
                     commandExecutor.displayChatMessage("§cError: Player bot found!");
                     return;
                 }
@@ -87,11 +87,11 @@ public class CommandAdminAuthon extends CommandCompat {
                     return;
                 }
 
-                String hash = AuthonServer.ENCRYPTOR.getHash(args[2]);
-                PlayerContainer player = AuthonServer.STORAGE.getPlayer(username);
+                String hash = AuthonServer.getEncryption().getHash(args[2]);
+                PlayerContainer player = AuthonServer.getStorage().getPlayer(username);
                 player.setHash(hash);
 
-                if(AuthonServer.STORAGE.updatePassword(player)) {
+                if(AuthonServer.getStorage().updatePassword(player)) {
                     commandExecutor.displayChatMessage("Successfully changed pwd!");
                 } else {
                     commandExecutor.displayChatMessage("Errored while fucking");

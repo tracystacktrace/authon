@@ -16,8 +16,8 @@ public class AuthonServer extends Mod {
     public static final AuthonConfig CONFIG = new AuthonConfig();
     public static final Logger LOGGER = Logger.getLogger("AuthOn");
 
-    public static IStorage STORAGE;
-    public static PassEncryption ENCRYPTOR;
+    private static IStorage STORAGE;
+    private static PassEncryption ENCRYPTOR;
 
     @Override
     public void onPreInit() {
@@ -35,6 +35,13 @@ public class AuthonServer extends Mod {
         CommandCompat.registerCommand(new CommandAdminAuthon());
     }
 
+    public static IStorage getStorage() {
+        return STORAGE;
+    }
+
+    public static PassEncryption getEncryption() {
+        return ENCRYPTOR;
+    }
 
     public static boolean isPasswordSuitable(String s) {
         return !s.isEmpty() && s.length() >= 8;
