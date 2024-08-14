@@ -13,8 +13,13 @@ apply plugin: 'foxloader.dev'
 
 version '0.1'
 
+configurations {
+    shadowDope
+    serverImplementation.extendsFrom(shadowDope)
+}
+
 dependencies {
-    serverImplementation 'com.h2database:h2:2.2.220'
+    shadowDope('com.h2database:h2:2.2.220')
 }
 
 foxloader {
@@ -29,4 +34,12 @@ foxloader {
     // the same classes, so uncomment to disable the side inclusion.
     includeClient = false
     // includeServer = false
+}
+
+jar {
+    doFirst {
+        from configurations.shadowDope.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
 }
