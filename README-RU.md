@@ -59,4 +59,8 @@ allowsSessions=false
 
 ## License
 
-Данный мод имеет лицензию [LGPL-3.0-or-later](https://codeberg.org/tracystacktrace/authon/src/branch/main/LICENSE). Просто следуйте документу и все будет ок!
+Данный мод имеет лицензию [LGPL-3.0-or-later](https://codeberg.org/tracystacktrace/authon/src/branch/main/LICENSE).
+
+Встроенная библиотека H2 имеет лицензию [Mozilla Public License, version 2.0](https://github.com/h2database/h2database/blob/master/LICENSE.txt).
+
+Просто следуйте документу и все будет ок!

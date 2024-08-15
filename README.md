@@ -69,4 +69,8 @@ allowsSessions=false
 
 ## License
 
-The mod is licensed under [LGPL-3.0-or-later](https://codeberg.org/tracystacktrace/authon/src/branch/main/LICENSE). Follow the license and you'll be ok!
+The mod is licensed under [LGPL-3.0-or-later](https://codeberg.org/tracystacktrace/authon/src/branch/main/LICENSE).
+
+The embedded H2 library is licensed under [Mozilla Public License, version 2.0](https://github.com/h2database/h2database/blob/master/LICENSE.txt).
+
+Follow the license and you'll be ok!
