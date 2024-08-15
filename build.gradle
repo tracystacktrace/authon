@@ -49,6 +49,9 @@ jar {
 publishing {
     publications {
         maven(MavenPublication) {
+            groupId = 'net.tracyex0.authon'
+            version = project.version
+
             from(components.java)
         }
     }
