@@ -11,9 +11,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.concurrent.TimeUnit;
 
 public class GameUtils {
-    
+
     public static boolean isPasswordSuitable(@NotNull String s) {
-        return s.length() >= 8;
+        return s.length() >= AuthonServer.CONFIG.minPassLength;
     }
 
     public static void informPlayer(@NotNull EntityPlayerMP player) {

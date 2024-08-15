@@ -40,7 +40,7 @@ public class CommandAdminAuthon extends CommandCompat {
                     return;
                 }
                 if (!GameUtils.isPasswordSuitable(args[3])) {
-                    commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_password_short);
+                    commandExecutor.displayChatMessage(String.format(AuthonServer.CONFIG.local_password_short, AuthonServer.CONFIG.minPassLength));
                     return;
                 }
 
@@ -91,7 +91,7 @@ public class CommandAdminAuthon extends CommandCompat {
                     return;
                 }
                 if (!GameUtils.isPasswordSuitable(args[3])) {
-                    commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_password_short);
+                    commandExecutor.displayChatMessage(String.format(AuthonServer.CONFIG.local_password_short, AuthonServer.CONFIG.minPassLength));
                     return;
                 }
 

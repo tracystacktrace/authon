@@ -41,7 +41,7 @@ public class CommandChangepwd extends CommandCompat {
         }
 
         if (!GameUtils.isPasswordSuitable(args[2])) {
-            commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_password_short);
+            commandExecutor.displayChatMessage(String.format(AuthonServer.CONFIG.local_password_short, AuthonServer.CONFIG.minPassLength));
             return;
         }
 

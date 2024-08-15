@@ -7,6 +7,9 @@ public class AuthonConfig {
     @ConfigEntry(configName = "Amount of time (in seconds) to allow the player to login/register")
     public int waitingTime = 30;
 
+    @ConfigEntry(configName = "The minimal number of chars for the password. Should be 8 or more")
+    public int minPassLength = 8;
+
     @ConfigEntry(configName = "Instantly kick on first faulty attempt")
     public boolean instantKick = true;
 
@@ -40,7 +43,7 @@ public class AuthonConfig {
     public String local_password_wrong = "§6AuthOn: §cWrong password!";
 
     @ConfigEntry(configName = "local_password_short")
-    public String local_password_short = "§6AuthOn: §cPassword too short!";
+    public String local_password_short = "§6AuthOn: §cPassword too short (%d chars minimum)!";
 
     @ConfigEntry(configName = "local_command_usage")
     public String local_command_usage = "§6AuthOn Usage: %s";

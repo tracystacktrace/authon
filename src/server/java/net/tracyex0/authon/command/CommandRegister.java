@@ -39,7 +39,7 @@ public class CommandRegister extends CommandCompat {
         String password = args[1];
 
         if (!GameUtils.isPasswordSuitable(password)) {
-            commandExecutor.displayChatMessage(AuthonServer.CONFIG.local_password_short);
+            commandExecutor.displayChatMessage(String.format(AuthonServer.CONFIG.local_password_short, AuthonServer.CONFIG.minPassLength));
             return;
         }
 
