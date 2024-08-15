@@ -11,10 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.concurrent.TimeUnit;
 
 public class GameUtils {
-    /**
-     * @deprecated May be changed
-     */
-    @Deprecated
+    
     public static boolean isPasswordSuitable(@NotNull String s) {
         return s.length() >= 8;
     }
