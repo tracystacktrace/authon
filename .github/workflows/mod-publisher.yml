@@ -29,9 +29,9 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
 
-    - name: Upload build artifacts
+    - name: Upload mod (${{ github.ref_name }})
       uses: actions/upload-artifact@v4
       with:
-        name: AuthOn-${{ github.ref_name }}
-        path: ${{ github.workspace }}/build/libs/AuthOn-${{ github.ref_name }}.jar
+        path: build/libs/AuthOn-${{ github.ref_name }}.jar
         if-no-files-found: error
+        compression-level: 0
