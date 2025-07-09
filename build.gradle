@@ -11,7 +11,7 @@ buildscript {
 apply plugin: 'foxloader.dev'
 
 group = 'net.tracystacktrace'
-version = '1.0.2'
+version = '1.0'
 
 configurations {
     implAndInclude
@@ -43,7 +43,6 @@ jar {
         exclude 'META-INF/*.RSA'
         exclude '**/package-info.class'
         exclude '**/module-info.class'
-        exclude 'assets/*/icon.png'
     }
     from "LICENSE"
 }
@@ -52,7 +51,7 @@ foxloader {
     modId = "authon"
     modName = "AuthOn"
     modVersion = project.version
-    modWebsite = "https://codeberg.org/tracystacktrace/authon"
+    modWebsite = "https://github.com/tracystacktrace/authon"
     modAuthors = "tracystacktrace"
     modMain = "net.tracystacktrace.authon.AuthonServer"
     modDesc("A simple auth mod for FoxLoader servers")

@@ -1,6 +1,6 @@
 # AuthOn
 
-[Russian README.md | Русскоязычное описание](https://codeberg.org/tracystacktrace/authon/src/branch/main/README-RU.md)
+[Russian README.md | Русскоязычное описание](https://github.com/tracystacktrace/authon/blob/main/README-RU.md)
 
 AuthOn is a modification for FoxLoader (ReIndev) servers designed to implement an alternative authentication system.
 
@@ -14,7 +14,7 @@ Uses H2 as a database system, seems to be pretty efficient and optimized solutio
 
 Simply get a `.jar` file from releases and put it into `mods` folder.
 
-[You can get the latest release here](https://codeberg.org/tracystacktrace/authon/releases)
+[You can get the latest release here](https://github.com/tracystacktrace/authon/releases)
 
 ## Commands
 
@@ -69,7 +69,7 @@ allowsSessions=false
 
 ## License
 
-The mod is licensed under [LGPL-3.0-or-later](https://codeberg.org/tracystacktrace/authon/src/branch/main/LICENSE).
+The mod is licensed under [LGPL-3.0-or-later](https://github.com/tracystacktrace/authon/blob/main/LICENSE).
 
 The embedded H2 library is licensed under [Mozilla Public License, version 2.0](https://github.com/h2database/h2database/blob/master/LICENSE.txt).
 

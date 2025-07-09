@@ -11,7 +11,7 @@ AuthOn - модификация для серверов на FoxLoader (ReIndev)
 
 Просто скачайте готовый релиз и переместите файл `.jar` в папку `mods`.
 
-[Последний релиз можно найти здесь](https://codeberg.org/tracystacktrace/authon/releases)
+[Последний релиз можно найти здесь](https://github.com/tracystacktrace/authon/releases)
 
 ## Команды
 
@@ -59,7 +59,7 @@ allowsSessions=false
 
 ## License
 
-Данный мод имеет лицензию [LGPL-3.0-or-later](https://codeberg.org/tracystacktrace/authon/src/branch/main/LICENSE).
+Данный мод имеет лицензию [LGPL-3.0-or-later](https://github.com/tracystacktrace/authon/blob/main/LICENSE).
 
 Встроенная библиотека H2 имеет лицензию [Mozilla Public License, version 2.0](https://github.com/h2database/h2database/blob/master/LICENSE.txt).
 
