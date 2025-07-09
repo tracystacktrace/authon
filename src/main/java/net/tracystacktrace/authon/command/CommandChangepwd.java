@@ -25,7 +25,7 @@ public class CommandChangepwd extends Command {
     @Override
     public void onExecute(String[] args, ICommandListener commandExecutor) {
         if (!(commandExecutor instanceof NetServerHandler)) {
-            commandExecutor.log("Use this from user side! lmaoaooamoamo");
+            commandExecutor.log("This command is not designed to be used from non-player instance!");
             return;
         }
 
@@ -34,7 +34,7 @@ public class CommandChangepwd extends Command {
             return;
         }
 
-        PlayerContainer playerContainer = AuthonServer.getStorage().getPlayer(commandExecutor.getUsername());
+        final PlayerContainer playerContainer = AuthonServer.getStorage().getPlayer(commandExecutor.getUsername());
 
         if (playerContainer == null) {
             commandExecutor.log(AuthonServer.CONFIG.local_db_unexpected);

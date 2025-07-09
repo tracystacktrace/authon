@@ -27,7 +27,7 @@ public class CommandLogin extends Command {
     @Override
     public void onExecute(String[] args, ICommandListener commandExecutor) {
         if (!(commandExecutor instanceof NetServerHandler)) {
-            commandExecutor.log("Use this from user!!!");
+            commandExecutor.log("This command is not designed to be used from non-player instance!");
             return;
         }
 
