@@ -52,7 +52,7 @@ public class AuthonConfig {
     public String local_password_short = "§7[§6AuthOn§7] §cPassword too short (%d chars minimum)!";
 
     @ConfigEntry(configName = "local_command_usage")
-    public String local_command_usage = "§7[§6AuthOn§7] §6AuthOn Usage: %s";
+    public String local_command_usage = "§7[§6AuthOn§7] §6Usage: %s";
 
     @ConfigEntry(configName = "local_command_invalid")
     public String local_command_invalid = "§7[§6AuthOn§7] §cInvalid syntax! Use %s";

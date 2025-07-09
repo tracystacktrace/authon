@@ -54,5 +54,5 @@ foxloader {
     modWebsite = "https://github.com/tracystacktrace/authon"
     modAuthors = "tracystacktrace"
     modMain = "net.tracystacktrace.authon.AuthonServer"
-    modDesc("A simple auth mod for FoxLoader servers")
+    modDesc("A simple custom authentication mod for FoxLoader servers")
 }

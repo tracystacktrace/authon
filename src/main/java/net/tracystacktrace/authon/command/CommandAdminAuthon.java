@@ -29,6 +29,7 @@ public class CommandAdminAuthon extends Command {
             commandExecutor.log(String.format(AuthonServer.CONFIG.local_command_usage, "§e/authon register <username> <password>"));
             commandExecutor.log(String.format(AuthonServer.CONFIG.local_command_usage, "§e/authon changepwd <username> <password>"));
             commandExecutor.log(String.format(AuthonServer.CONFIG.local_command_usage, "§e/authon unregister <username>"));
+            commandExecutor.log(String.format(AuthonServer.CONFIG.local_command_usage, "§e/authon version"));
             return;
         }
 
