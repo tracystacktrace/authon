@@ -14,9 +14,9 @@ group = 'net.tracystacktrace'
 version = '1.0'
 
 configurations {
-    implAndInclude
-    implAndInclude.transitive = false
-    implementation.extendsFrom(implAndInclude)
+    embeddedLibrary
+    embeddedLibrary.transitive = false
+    implementation.extendsFrom(embeddedLibrary)
 }
 
 dependencies {
@@ -24,7 +24,7 @@ dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 
-    implAndInclude('com.h2database:h2:2.2.220')
+    embeddedLibrary('com.h2database:h2:2.3.232')
 }
 
 test {
@@ -33,7 +33,7 @@ test {
 
 jar {
     from(provider {
-        configurations.implAndInclude.collect {
+        configurations.embeddedLibrary.collect {
             it.isDirectory() ? it : zipTree(it)
         }
     }) {

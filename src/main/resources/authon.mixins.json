@@ -10,6 +10,7 @@
     "MixinNetLoginHandler",
     "MixinNetServerHandler",
     "MixinPlayerController",
+    "MixinServerConfigurationManager",
     "MixinServerPlayerCommandHandler"
   ]
 }

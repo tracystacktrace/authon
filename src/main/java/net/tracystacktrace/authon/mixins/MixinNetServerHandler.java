@@ -3,8 +3,10 @@ package net.tracystacktrace.authon.mixins;
 import net.minecraft.common.networking.*;
 import net.minecraft.server.entity.player.EntityPlayerMP;
 import net.minecraft.server.networking.NetServerHandler;
+import net.tracystacktrace.authon.AuthonServer;
 import net.tracystacktrace.authon.tools.GameUtils;
 import net.tracystacktrace.authon.tools.IPlayerAuth;
+import net.tracystacktrace.authon.tools.ITapeHolder;
 import net.tracystacktrace.authon.tools.TemporaryTape;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -20,22 +22,43 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * @since 1.0
  */
 @Mixin(NetServerHandler.class)
-public abstract class MixinNetServerHandler {
+public abstract class MixinNetServerHandler implements ITapeHolder {
     @Shadow
     private EntityPlayerMP playerEntity;
 
     @Shadow
     public abstract void teleportTo(double arg1, double arg3, double arg5, float arg7, float arg8);
 
+    @Shadow
+    public abstract void sendPacket(Packet packet);
+
     @Unique
     private TemporaryTape authon$temp_solution;
 
-//    @Inject(method = "sendPacket*", at = @At("HEAD"), cancellable = true)
-//    private void authon$cause_chaos(Packet packet, CallbackInfo ci) {
-//        if (!IPlayerAuth.isAuthenticated(this.playerEntity) && packet instanceof Packet5PlayerInventory) {
-//            ci.cancel();
-//        }
-//    }
+    @Unique
+    private boolean authon$keepInLimbo = false;
+
+    @Override
+    public void restoreCoordinates() {
+        if (this.authon$temp_solution != null) {
+            this.teleportTo(
+                    this.authon$temp_solution.x,
+                    this.authon$temp_solution.y,
+                    this.authon$temp_solution.z,
+                    this.authon$temp_solution.yaw,
+                    this.authon$temp_solution.pitch
+            );
+        }
+    }
+
+    @Inject(method = "sendPacket*", at = @At("HEAD"), cancellable = true)
+    private void authon$cause_chaos(Packet packet, CallbackInfo ci) {
+        if (AuthonServer.CONFIG.hideCoordinates && !IPlayerAuth.isAuthenticated(this.playerEntity) && (packet instanceof Packet13PlayerLookMove move)) {
+            if (move.xPosition != 0 && move.zPosition != 0 && move.yPosition != 0) {
+                ci.cancel();
+            }
+        }
+    }
 
     @Inject(method = "handleCreativeSetSlot", at = @At("HEAD"), cancellable = true)
     private void authon$cancel_creative_set_slot(Packet107CreativeSetSlot packet107, CallbackInfo ci) {
@@ -47,20 +70,32 @@ public abstract class MixinNetServerHandler {
     @Inject(method = "handleFlying", at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/server/MinecraftServer;getWorldManager(I)Lnet/minecraft/server/world/WorldServer;",
-            shift = At.Shift.AFTER))
+            shift = At.Shift.AFTER
+    ), cancellable = true)
     private void authon$cancel_handleFlying(Packet10Flying packet10Flying, CallbackInfo ci) {
         if (!IPlayerAuth.isAuthenticated(this.playerEntity)) {
             if (authon$temp_solution == null) {
                 authon$temp_solution = new TemporaryTape(this.playerEntity);
             }
-            teleportTo(
-                    authon$temp_solution.x,
-                    authon$temp_solution.y,
-                    authon$temp_solution.z,
-                    authon$temp_solution.yaw,
-                    authon$temp_solution.pitch
-            );
-        } else if (authon$temp_solution != null) {
+            if (AuthonServer.CONFIG.hideCoordinates) {
+                this.sendPacket(new Packet13PlayerLookMove(0, -3 + 1.62, -3, 0, 0f, 0f, false));
+                this.authon$keepInLimbo = true;
+                ci.cancel();
+            } else {
+                this.restoreCoordinates();
+            }
+            return;
+        }
+
+        if (AuthonServer.CONFIG.hideCoordinates && this.authon$keepInLimbo) {
+            this.restoreCoordinates();
+            this.authon$keepInLimbo = false;
+        }
+
+        if (authon$temp_solution != null) {
+            if (AuthonServer.CONFIG.hideCoordinates) {
+                this.restoreCoordinates();
+            }
             authon$temp_solution = null;
         }
     }
@@ -86,12 +121,12 @@ public abstract class MixinNetServerHandler {
         }
     }
 
-    @Inject(method = "handleNameTag", at = @At("HEAD"), cancellable = true)
-    private void authon$cancel_handleNameTag(Packet91NameTag packet91, CallbackInfo ci) {
-        if (!IPlayerAuth.isAuthenticated(this.playerEntity)) {
-            ci.cancel();
-        }
-    }
+//    @Inject(method = "handleNameTag", at = @At("HEAD"), cancellable = true)
+//    private void authon$cancel_handleNameTag(Packet91NameTag packet91, CallbackInfo ci) {
+//        if (!IPlayerAuth.isAuthenticated(this.playerEntity)) {
+//            ci.cancel();
+//        }
+//    }
 
     @Inject(method = "handleEmote", at = @At("HEAD"), cancellable = true)
     private void authon$cancel_handleEmote(Packet92Emote packet92, CallbackInfo ci) {

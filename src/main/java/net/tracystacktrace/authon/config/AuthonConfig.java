@@ -19,6 +19,9 @@ public class AuthonConfig {
     @ConfigEntry(configComment = "Hide inventory content before auth is completed")
     public boolean hideInventoryContent = true;
 
+    @ConfigEntry(configComment = "Locate player to underworld coordinates before auth is completed")
+    public boolean hideCoordinates = true;
+
     /* Translation (localization) config fields */
 
     @ConfigEntry(configName = "local_login_notification")

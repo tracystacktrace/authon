@@ -6,6 +6,7 @@ import net.tracystacktrace.authon.AuthonServer;
 import net.tracystacktrace.authon.tools.storage.PlayerContainer;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 public class GameUtils {
@@ -31,7 +32,7 @@ public class GameUtils {
         final String username_constant = player.username;
 
         //push waiting async
-        AuthonServer.TIMEOUT_POOL.schedule(() -> {
+        ScheduledFuture<?> future = AuthonServer.TIMEOUT_POOL.schedule(() -> {
             final EntityPlayerMP scheduleEntity = MinecraftServer.getInstance().configManager.getPlayerEntity(username_constant);
             if (scheduleEntity == null) {
                 return;
@@ -40,6 +41,8 @@ public class GameUtils {
                 scheduleEntity.playerNetServerHandler.kickPlayer(AuthonServer.CONFIG.local_auth_kick);
             }
         }, AuthonServer.CONFIG.waitingTime, TimeUnit.SECONDS);
+
+        ((IPlayerAuth) player).setTimeout(future);
     }
 
     public static @NotNull String getIPAddress(@NotNull EntityPlayerMP player) {
