@@ -1,6 +1,6 @@
 # AuthOn
 
-<img src="https://github.com/tracystacktrace/authon/raw/main/src/main/resources/assets/authon/icon.png" alt="Mod Icon" width="256" height="256" />
+<img src="https://github.com/tracystacktrace/authon/raw/main/src/main/resources/assets/authon/icon.png" alt="Mod Icon" width=200% />
 
 [![Running on - FoxLoader](https://img.shields.io/badge/Running_on-FoxLoader-orange)](https://github.com/Fox2Code/FoxLoader) [![GitHub release](https://img.shields.io/github/release/tracystacktrace/authon?include_prereleases=&sort=semver&color=purple)](https://github.com/tracystacktrace/authon/releases/)
 
@@ -12,12 +12,6 @@ AuthOn эксклюзивно разрабатывается для сервер
 В качестве основной базы данных используется H2, которое впрочем сделает всю грязную работу по хранению данных.
 
 **ВНИМАНИЕ! Это СЕРВЕРНЫЙ мод, он НЕ БУДЕТ работать в клиенте!**
-
-## Установка
-
-Просто скачайте готовый релиз и переместите файл `.jar` в папку `mods`.
-
-[Последний релиз можно найти здесь](https://github.com/tracystacktrace/authon/releases)
 
 ## Команды
 
@@ -73,6 +67,12 @@ AuthOn эксклюзивно разрабатывается для сервер
   "hideCoordinates": true
 }
 ```
+
+## Установка
+
+Просто скачайте готовый релиз и переместите файл `.jar` в папку `mods`.
+
+[Последний релиз можно найти здесь!](https://github.com/tracystacktrace/authon/releases)
 
 ## License
 

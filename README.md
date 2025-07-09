@@ -1,6 +1,6 @@
 # AuthOn
 
-<img src="https://github.com/tracystacktrace/authon/raw/main/src/main/resources/assets/authon/icon.png" alt="Mod Icon" width="256" height="256" />
+<img src="https://github.com/tracystacktrace/authon/raw/main/src/main/resources/assets/authon/icon.png" alt="Mod Icon" width=200% />
 
 [![Running on - FoxLoader](https://img.shields.io/badge/Running_on-FoxLoader-orange)](https://github.com/Fox2Code/FoxLoader) [![GitHub release](https://img.shields.io/github/release/tracystacktrace/authon?include_prereleases=&sort=semver&color=purple)](https://github.com/tracystacktrace/authon/releases/)
 
@@ -14,12 +14,6 @@ AuthOn is exclusively developed for the FoxLoader (ReIndev) servers, and is writ
 Uses H2 as a database system, a small runtime database system that will do dirty job of sql-ing for you.
 
 **WARNING! This is a SERVER modification; therefore, it won't work on clients!**
-
-## Installation
-
-Simply get a `.jar` file from releases and put it into `mods` folder.
-
-[You can get the latest release here](https://github.com/tracystacktrace/authon/releases)
 
 ## Commands
 
@@ -74,6 +68,19 @@ The mod's config file (`authon.cfg`) can be used to configure localization & mes
   "hideCoordinates": true
 }
 ```
+
+## Installation
+
+Ensure you have [FoxLoader](https://github.com/Fox2Code/FoxLoader) installed. Click at the link and follow instructions (`Installation` section). Or in a nutshell, grab `*-mmc.zip` file and export it to MultiMC/PrismLauncher.
+
+Simply download a `.jar` file and put it inside `mods` folder. That's all.
+
+Want to compile by yourself? Just download the sources and run the following command:
+```shell
+./gradlew build
+```
+
+The output file will be located in `build/libs` folder.
 
 ## Implemented/TODO
 
