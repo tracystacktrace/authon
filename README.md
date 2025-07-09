@@ -1,12 +1,17 @@
 # AuthOn
 
+![Mod Showcase Image](https://github.com/tracystacktrace/authon/raw/main/src/main/resources/assets/authon/icon.png)
+
+[![Running on - FoxLoader](https://img.shields.io/badge/Running_on-FoxLoader-orange)](https://github.com/Fox2Code/FoxLoader) [![GitHub release](https://img.shields.io/github/release/tracystacktrace/authon?include_prereleases=&sort=semver&color=purple)](https://github.com/tracystacktrace/authon/releases/)
+
 [Russian README.md | Русскоязычное описание](https://github.com/tracystacktrace/authon/blob/main/README-RU.md)
 
 AuthOn is a modification for FoxLoader (ReIndev) servers designed to implement an alternative authentication system.
 
-Examples of alternative auth systems in Bukkit world are AuthMe and OpeNLogin. AuthOn is exclusively developed for the FoxLoader (ReIndev) based platforms.
+Examples of alternative auth systems in Bukkit world are `AuthMe` and `OpeNLogin`.
+AuthOn is exclusively developed for the FoxLoader (ReIndev) servers, and is written on FoxLoader.
 
-Uses H2 as a database system, seems to be pretty efficient and optimized solution.
+Uses H2 as a database system, a small runtime database system that will do dirty job of sql-ing for you.
 
 **WARNING! This is a SERVER modification; therefore, it won't work on clients!**
 
@@ -42,29 +47,40 @@ Simply get a `.jar` file from releases and put it into `mods` folder.
 
 # Allows an OP to change a player's password
 /authon changepwd <username> <new password>
+
+# Shows current mod version
+/authon version
 ```
 
 ## Configuration
 
-The mod's config file (`authon.config`) can be used to configure localization and messages. However, there are also two specific options:
+The mod's config file (`authon.cfg`) can be used to configure localization & messages, but also:
 
-```properties
-# Amount of time (in seconds) to allow the player to login/register
-waitingTime=30
+```json5
+{
+  // Amount of time (in seconds) to allow the player to login/register
+  "waitingTime": 30,
 
-# Instantly kick on first faulty attempt
-instantKick=true
+  // Instantly kick on first faulty attempt
+  "instantKick": true,
 
-# Allows IP sessions in a server
-allowsSessions=false
+  // Allows IP sessions in a server
+  "allowsSessions": false,
+
+  // Hide inventory content before auth is completed
+  "hideInventoryContent": true,
+  
+  // Locate player to underworld coordinates (limbo) before auth is completed
+  "hideCoordinates": true
+}
 ```
 
-## TODO
+## Implemented/TODO
 
-- [X] Fix the log leaking bug (happens when log saves commands history).
-- [X] Make sessions a toggleable feature.
-- [ ] Introduce an ability to connect to a remote MySQL or SQL servers.
-- [ ] Make stuff compatible with ReIndev 2.9 (when it releases).
+- [X] Fix the log leaking bug (happens when log saves commands history)
+- [X] Make sessions a toggleable feature
+- [ ] Introduce an ability to connect to a remote MySQL or SQL servers
+- [ ] Make stuff compatible with ReIndev 2.9 (when it releases)
 - [X] Meow? Mrow mrrrrp :3
 
 ## License
@@ -72,5 +88,3 @@ allowsSessions=false
 The mod is licensed under [LGPL-3.0-or-later](https://github.com/tracystacktrace/authon/blob/main/LICENSE).
 
 The embedded H2 library is licensed under [Mozilla Public License, version 2.0](https://github.com/h2database/h2database/blob/master/LICENSE.txt).
-
-Follow the license and you'll be ok!

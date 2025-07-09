@@ -52,6 +52,7 @@ foxloader {
     modName = "AuthOn"
     modVersion = project.version
     modWebsite = "https://github.com/tracystacktrace/authon"
+    modIcon = "assets/authon/icon.png"
     modAuthors = "tracystacktrace"
     modMain = "net.tracystacktrace.authon.AuthonServer"
     modDesc("A simple custom authentication mod for FoxLoader servers")

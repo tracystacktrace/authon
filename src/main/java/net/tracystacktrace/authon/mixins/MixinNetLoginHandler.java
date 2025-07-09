@@ -35,6 +35,6 @@ public class MixinNetLoginHandler {
 
     @Inject(method = "handleErrorMessage", at = @At("TAIL"))
     private void authon$make_sure(String arg1, Object[] args, CallbackInfo ci) {
-        //TODO: Measurements to safe player from cache
+        //TODO: Measurements to save player from cache
     }
 }
