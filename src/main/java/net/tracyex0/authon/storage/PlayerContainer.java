@@ -48,10 +48,9 @@ public class PlayerContainer {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof PlayerContainer)) {
+        if (!(obj instanceof PlayerContainer another)) {
             return false;
         }
-        PlayerContainer another = (PlayerContainer) obj;
         return another.username.equals(this.username) && another.ip.equals(this.ip);
     }
 

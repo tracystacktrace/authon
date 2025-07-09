@@ -1,6 +1,6 @@
 package net.tracyex0.authon.misc;
 
-import net.minecraft.src.game.entity.player.EntityPlayer;
+import net.minecraft.common.entity.player.EntityPlayer;
 import org.jetbrains.annotations.NotNull;
 
 public class TemporaryTape {

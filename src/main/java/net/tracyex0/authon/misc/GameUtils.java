@@ -1,9 +1,7 @@
 package net.tracyex0.authon.misc;
 
-import com.fox2code.foxloader.network.NetworkPlayer;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.src.game.entity.player.EntityPlayerMP;
-import net.minecraft.src.server.packets.NetServerHandler;
+import net.minecraft.server.entity.player.EntityPlayerMP;
 import net.tracyex0.authon.AuthonServer;
 import net.tracyex0.authon.storage.PlayerContainer;
 import org.jetbrains.annotations.NotNull;
@@ -17,7 +15,7 @@ public class GameUtils {
     }
 
     public static void informPlayer(@NotNull EntityPlayerMP player) {
-        player.displayChatMessage(
+        player.addChatMessage(
                 AuthonServer.getStorage().isPlayerPresent(player.username) ?
                         AuthonServer.CONFIG.local_login_notification :
                         AuthonServer.CONFIG.local_register_notification
@@ -33,13 +31,13 @@ public class GameUtils {
                 return;
             }
             if (!((IPlayerAuth) player1).isAuthenticated()) {
-                player1.kick(AuthonServer.CONFIG.local_auth_kick);
+                player1.playerNetServerHandler.kickPlayer(AuthonServer.CONFIG.local_auth_kick);
             }
         }, AuthonServer.CONFIG.waitingTime, TimeUnit.SECONDS);
     }
 
-    public static @NotNull String getIPAddress(@NotNull NetworkPlayer player) {
-        return ((NetServerHandler) player.getNetworkConnection()).netManager.getSocket().getInetAddress().getHostAddress();
+    public static @NotNull String getIPAddress(@NotNull EntityPlayerMP player) {
+        return player.playerNetServerHandler.netManager.getSocket().getInetAddress().getHostAddress();
     }
 
     public static boolean checkSession(@NotNull EntityPlayerMP player) {

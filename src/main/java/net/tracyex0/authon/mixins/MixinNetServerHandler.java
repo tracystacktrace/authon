@@ -1,7 +1,8 @@
 package net.tracyex0.authon.mixins;
 
-import net.minecraft.src.game.entity.player.EntityPlayerMP;
-import net.minecraft.src.server.packets.*;
+import net.minecraft.common.networking.*;
+import net.minecraft.server.entity.player.EntityPlayerMP;
+import net.minecraft.server.networking.NetServerHandler;
 import net.tracyex0.authon.misc.GameUtils;
 import net.tracyex0.authon.misc.IPlayerAuth;
 import net.tracyex0.authon.misc.TemporaryTape;
@@ -27,19 +28,19 @@ public abstract class MixinNetServerHandler {
     @Shadow
     public abstract void teleportTo(double arg1, double arg3, double arg5, float arg7, float arg8);
 
-    @Inject(method = "sendPacket", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "sendPacket*", at = @At("HEAD"), cancellable = true)
     private void authon$cause_chaos(Packet packet, CallbackInfo ci) {
         if (!((IPlayerAuth) this.playerEntity).isAuthenticated() && packet instanceof Packet5PlayerInventory) {
             ci.cancel();
         }
     }
 
-    @Inject(method = "handleCauldron", at = @At("HEAD"), cancellable = true)
-    private void authon$cancel_cauldron(Packet66Cauldron packet66Cauldron, CallbackInfo ci) {
-        if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
-            ci.cancel();
-        }
-    }
+//    @Inject(method = "handleCauldron", at = @At("HEAD"), cancellable = true)
+//    private void authon$cancel_cauldron(Packet66Cauldron packet66Cauldron, CallbackInfo ci) {
+//        if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
+//            ci.cancel();
+//        }
+//    }
 
     @Inject(method = "handleCreativeSetSlot", at = @At("HEAD"), cancellable = true)
     private void authon$cancel_creative_set_slot(Packet107CreativeSetSlot packet107, CallbackInfo ci) {
@@ -50,12 +51,9 @@ public abstract class MixinNetServerHandler {
 
     @Inject(method = "handleFlying", at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/server/MinecraftServer;getWorldManager(I)Lnet/minecraft/src/game/level/WorldServer;",
+            target = "Lnet/minecraft/server/MinecraftServer;getWorldManager(I)Lnet/minecraft/server/world/WorldServer;",
             shift = At.Shift.AFTER))
-    private void authon$cancel_creative_fly(
-            Packet10Flying packet10Flying,
-            CallbackInfo ci
-    ) {
+    private void authon$cancel_creative_fly(Packet10Flying packet10Flying, CallbackInfo ci) {
         if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
             if (authon$temp_solution == null) {
                 authon$temp_solution = new TemporaryTape(this.playerEntity);
@@ -125,7 +123,7 @@ public abstract class MixinNetServerHandler {
         }
     }
 
-    @Inject(method = "func_21001_a", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "handleEntityActions", at = @At("HEAD"), cancellable = true)
     private void authon$cancel_action(Packet19EntityAction packet19EntityAction, CallbackInfo ci) {
         if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
             ci.cancel();
@@ -139,21 +137,21 @@ public abstract class MixinNetServerHandler {
         }
     }
 
-    @Inject(method = "handleWindowClick", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "handleGuiClick", at = @At("HEAD"), cancellable = true)
     private void authon$cancel_windows(Packet102WindowClick packet102WindowClick, CallbackInfo ci) {
         if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
             ci.cancel();
         }
     }
 
-    @Inject(method = "func_20008_a", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "handleTransaction", at = @At("HEAD"), cancellable = true)
     private void authon$cancel_craft_transaction(Packet106Transaction packet106Transaction, CallbackInfo ci) {
         if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
             ci.cancel();
         }
     }
 
-    @Inject(method = "handleUpdateSign", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "handleSignUpdate", at = @At("HEAD"), cancellable = true)
     private void authon$cancel_sign_update(Packet130UpdateSign packet130UpdateSign, CallbackInfo ci) {
         if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
             ci.cancel();

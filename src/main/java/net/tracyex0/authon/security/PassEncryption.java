@@ -34,21 +34,18 @@ public class PassEncryption {
         }
 
         /* a salty salt approach */
-        Random random = new Random();
+        final Random random = new Random();
         random.setSeed(s.getBytes(StandardCharsets.US_ASCII)[0]);
-        String salt = "";
+        final StringBuilder salt = new StringBuilder();
         for (int i = 0; i < 4; i++) {
-            salt += random.nextInt(0xFFFFFF);
+            salt.append(random.nextInt(0xFFFFFF));
         }
 
-        salt += s;
-        return computeHash(salt);
+        salt.append(s);
+        return this.computeHash(salt.toString());
     }
 
-    public boolean compareHash(
-            @Nullable String supposed,
-            @Nullable String hash
-    ) {
+    public boolean compareHash(@Nullable String supposed, @Nullable String hash) {
         if (supposed == null || hash == null || supposed.isEmpty() || hash.isEmpty()) {
             return false;
         }

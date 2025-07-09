@@ -1,18 +1,17 @@
 package net.tracyex0.authon;
 
+import com.fox2code.foxloader.launcher.FoxLauncher;
 import com.fox2code.foxloader.loader.Mod;
-import com.fox2code.foxloader.registry.CommandCompat;
+import com.fox2code.foxloader.registry.CommandRegistry;
 import net.tracyex0.authon.command.CommandAdminAuthon;
 import net.tracyex0.authon.command.CommandChangepwd;
 import net.tracyex0.authon.command.CommandLogin;
 import net.tracyex0.authon.command.CommandRegister;
-import net.tracyex0.authon.misc.AdvancedConfigProcessor;
 import net.tracyex0.authon.misc.AuthonConfig;
 import net.tracyex0.authon.security.PassEncryption;
 import net.tracyex0.authon.storage.IStorage;
 import net.tracyex0.authon.storage.impl.H2Database;
 
-import java.io.File;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -33,8 +32,11 @@ public class AuthonServer extends Mod {
 
     @Override
     public void onPreInit() {
-        setConfigObject(CONFIG);
-        AdvancedConfigProcessor.processConfig(CONFIG, new File("authon.config"));
+        if(!FoxLauncher.isServer()) {
+            throw new RuntimeException("The mod is only supported on servers! Do not install it on client-side!");
+        }
+
+        this.setConfigObject(CONFIG);
 
         STORAGE = new H2Database();
 
@@ -44,9 +46,9 @@ public class AuthonServer extends Mod {
             throw new RuntimeException("SHA-256 is not supported in this environment! Aborting!", e);
         }
 
-        CommandCompat.registerCommand(new CommandAdminAuthon());
-        CommandCompat.registerCommand(new CommandRegister());
-        CommandCompat.registerCommand(new CommandLogin());
-        CommandCompat.registerCommand(new CommandChangepwd());
+        CommandRegistry.registerCommand(new CommandAdminAuthon());
+        CommandRegistry.registerCommand(new CommandRegister());
+        CommandRegistry.registerCommand(new CommandLogin());
+        CommandRegistry.registerCommand(new CommandChangepwd());
     }
 }

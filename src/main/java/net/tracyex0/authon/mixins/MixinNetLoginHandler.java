@@ -1,10 +1,10 @@
 package net.tracyex0.authon.mixins;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.src.game.entity.player.EntityPlayerMP;
-import net.minecraft.src.server.packets.NetLoginHandler;
-import net.minecraft.src.server.packets.NetServerHandler;
-import net.minecraft.src.server.packets.Packet1Login;
+import net.minecraft.common.networking.Packet1Login;
+import net.minecraft.server.entity.player.EntityPlayerMP;
+import net.minecraft.server.networking.NetLoginHandler;
+import net.minecraft.server.networking.NetServerHandler;
 import net.tracyex0.authon.AuthonServer;
 import net.tracyex0.authon.misc.GameUtils;
 import net.tracyex0.authon.misc.IPlayerAuth;
@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(NetLoginHandler.class)
 public class MixinNetLoginHandler {
-    @Inject(method = "doLogin", at = @At(
+    @Inject(method = "handleLogin", at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/src/game/entity/player/EntityPlayerMP;func_20057_k()V",
             shift = At.Shift.AFTER
@@ -27,7 +27,7 @@ public class MixinNetLoginHandler {
             @Local NetServerHandler netServerHandler
     ) {
         if(AuthonServer.CONFIG.allowsSessions && GameUtils.checkSession(player)) {
-            player.displayChatMessage(AuthonServer.CONFIG.local_session_success);
+            player.addChatMessage(AuthonServer.CONFIG.local_session_success);
             ((IPlayerAuth)player).setAuthenticated(true);
         }else {
             GameUtils.initPlayerAuth(player);

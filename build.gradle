@@ -1,68 +1,59 @@
 buildscript {
-	repositories {
+    repositories {
         mavenCentral()
         maven { url 'https://cdn.fox2code.com/maven' }
-        maven { url 'https://jitpack.io/' }
     }
     dependencies {
-        classpath('com.fox2code.FoxLoader:dev:1.2.46')
+        classpath('com.fox2code.FoxLoader:dev:2.0-alpha32')
     }
 }
 
 apply plugin: 'foxloader.dev'
-apply plugin: 'maven-publish'
 
-version '0.2'
+group = 'net.tracystacktrace'
+version = '1.0.2'
 
 configurations {
-    shadowDope
-    serverImplementation.extendsFrom(shadowDope)
+    implAndInclude
+    implAndInclude.transitive = false
+    implementation.extendsFrom(implAndInclude)
 }
 
 dependencies {
-    shadowDope('com.h2database:h2:2.2.220')
+    api 'org.semver4j:semver4j:5.3.0'
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    implAndInclude('com.h2database:h2:2.2.220')
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    from(provider {
+        configurations.implAndInclude.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }) {
+        exclude 'META-INF/MANIFEST.MF'
+        exclude 'META-INF/*.SF'
+        exclude 'META-INF/*.DSA'
+        exclude 'META-INF/*.RSA'
+        exclude '**/package-info.class'
+        exclude '**/module-info.class'
+        exclude 'assets/*/icon.png'
+    }
+    from "LICENSE"
 }
 
 foxloader {
-    // forceReload = true
     modId = "authon"
     modName = "AuthOn"
     modVersion = project.version
     modWebsite = "https://codeberg.org/tracystacktrace/authon"
-    modDesc = "A simple auth mod for FoxLoader servers"
-    serverMod = "net.tracyex0.authon.AuthonServer"
-    // Development tools don't like that both client and server define
-    // the same classes, so uncomment to disable the side inclusion.
-    includeClient = false
-    // includeServer = false
-}
-
-jar {
-    doFirst {
-        from configurations.shadowDope.collect {
-            it.isDirectory() ? it : zipTree(it)
-        }
-    }
-}
-
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            groupId = 'net.tracyex0.authon'
-            version = project.version
-
-            from(components.java)
-        }
-    }
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = "https://maven.pkg.github.com/tracystacktrace/authon"
-            credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
-            }
-        }
-    }
+    modAuthors = "tracystacktrace"
+    modMain = "net.tracyex0.authon.AuthonServer"
+    modDesc("A simple auth mod for FoxLoader servers")
 }
