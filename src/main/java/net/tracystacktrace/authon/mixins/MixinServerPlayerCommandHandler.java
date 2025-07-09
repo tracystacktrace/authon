@@ -19,7 +19,7 @@ public class MixinServerPlayerCommandHandler {
     @Redirect(method = "handleSlashCommand", at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/common/util/logging/LogAgent;info(Ljava/lang/String;)V"))
-    private void authon$stop_leaking(LogAgent instance, String s) {
+    private void authon$redirectStripLogs(LogAgent instance, String s) {
         final String command = s.split(":")[1].trim();
         if (GameUtils.isAuthCommand(command)) {
             return;

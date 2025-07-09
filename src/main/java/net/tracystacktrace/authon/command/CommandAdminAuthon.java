@@ -118,7 +118,7 @@ public class CommandAdminAuthon extends Command {
             }
 
             case "version": {
-                commandExecutor.logFormat("§eYou are running AuthOn version %s", AuthonServer.getVersion());
+                commandExecutor.log(String.format("§eYou are running §6AuthOn §eversion %s", AuthonServer.getVersion()));
                 commandExecutor.log("§eFor more information, follow the link:");
                 commandExecutor.log("§ehttps://github.com/tracystacktrace/authon");
                 return;

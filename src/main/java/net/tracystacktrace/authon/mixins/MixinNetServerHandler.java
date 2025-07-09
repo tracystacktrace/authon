@@ -23,22 +23,23 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MixinNetServerHandler {
     @Shadow
     private EntityPlayerMP playerEntity;
-    @Unique
-    private TemporaryTape authon$temp_solution;
 
     @Shadow
     public abstract void teleportTo(double arg1, double arg3, double arg5, float arg7, float arg8);
 
-    @Inject(method = "sendPacket*", at = @At("HEAD"), cancellable = true)
-    private void authon$cause_chaos(Packet packet, CallbackInfo ci) {
-        if (!((IPlayerAuth) this.playerEntity).isAuthenticated() && packet instanceof Packet5PlayerInventory) {
-            ci.cancel();
-        }
-    }
+    @Unique
+    private TemporaryTape authon$temp_solution;
+
+//    @Inject(method = "sendPacket*", at = @At("HEAD"), cancellable = true)
+//    private void authon$cause_chaos(Packet packet, CallbackInfo ci) {
+//        if (!IPlayerAuth.isAuthenticated(this.playerEntity) && packet instanceof Packet5PlayerInventory) {
+//            ci.cancel();
+//        }
+//    }
 
     @Inject(method = "handleCreativeSetSlot", at = @At("HEAD"), cancellable = true)
     private void authon$cancel_creative_set_slot(Packet107CreativeSetSlot packet107, CallbackInfo ci) {
-        if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
+        if (!IPlayerAuth.isAuthenticated(this.playerEntity)) {
             ci.cancel();
         }
     }
@@ -47,8 +48,8 @@ public abstract class MixinNetServerHandler {
             value = "INVOKE",
             target = "Lnet/minecraft/server/MinecraftServer;getWorldManager(I)Lnet/minecraft/server/world/WorldServer;",
             shift = At.Shift.AFTER))
-    private void authon$cancel_creative_fly(Packet10Flying packet10Flying, CallbackInfo ci) {
-        if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
+    private void authon$cancel_handleFlying(Packet10Flying packet10Flying, CallbackInfo ci) {
+        if (!IPlayerAuth.isAuthenticated(this.playerEntity)) {
             if (authon$temp_solution == null) {
                 authon$temp_solution = new TemporaryTape(this.playerEntity);
             }
@@ -65,43 +66,43 @@ public abstract class MixinNetServerHandler {
     }
 
     @Inject(method = "handleBlockDig", at = @At("HEAD"), cancellable = true)
-    private void authon$cancel_block_dig(Packet14BlockDig packet14, CallbackInfo ci) {
-        if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
+    private void authon$cancel_handleBlockDig(Packet14BlockDig packet14, CallbackInfo ci) {
+        if (!IPlayerAuth.isAuthenticated(this.playerEntity)) {
             ci.cancel();
         }
     }
 
     @Inject(method = "handlePlace", at = @At("HEAD"), cancellable = true)
-    private void authon$cancel_place(Packet15Place packet15Place, CallbackInfo ci) {
-        if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
+    private void authon$cancel_handlePlace(Packet15Place packet15Place, CallbackInfo ci) {
+        if (!IPlayerAuth.isAuthenticated(this.playerEntity)) {
             ci.cancel();
         }
     }
 
     @Inject(method = "handleBlockItemSwitch", at = @At("HEAD"), cancellable = true)
-    private void authon$cancel_switch_block_item(Packet16BlockItemSwitch packet16BlockItemSwitch, CallbackInfo ci) {
-        if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
+    private void authon$cancel_handleBlockItemSwitch(Packet16BlockItemSwitch packet16BlockItemSwitch, CallbackInfo ci) {
+        if (!IPlayerAuth.isAuthenticated(this.playerEntity)) {
             ci.cancel();
         }
     }
 
     @Inject(method = "handleNameTag", at = @At("HEAD"), cancellable = true)
-    private void authon$cancel_nametag(Packet91NameTag packet91, CallbackInfo ci) {
-        if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
+    private void authon$cancel_handleNameTag(Packet91NameTag packet91, CallbackInfo ci) {
+        if (!IPlayerAuth.isAuthenticated(this.playerEntity)) {
             ci.cancel();
         }
     }
 
     @Inject(method = "handleEmote", at = @At("HEAD"), cancellable = true)
-    private void authon$cancel_emote(Packet92Emote packet92, CallbackInfo ci) {
-        if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
+    private void authon$cancel_handleEmote(Packet92Emote packet92, CallbackInfo ci) {
+        if (!IPlayerAuth.isAuthenticated(this.playerEntity)) {
             ci.cancel();
         }
     }
 
     @Inject(method = "handleChat", at = @At("HEAD"), cancellable = true)
-    private void authon$cancel_chat(Packet3Chat packet3Chat, CallbackInfo ci) {
-        if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
+    private void authon$cancel_handleChat(Packet3Chat packet3Chat, CallbackInfo ci) {
+        if (!IPlayerAuth.isAuthenticated(this.playerEntity)) {
             String message = packet3Chat.message.trim();
             if (!message.startsWith("/login") && !message.startsWith("/register")) {
                 GameUtils.informPlayer(this.playerEntity);
@@ -111,50 +112,50 @@ public abstract class MixinNetServerHandler {
     }
 
     @Inject(method = "handleArmAnimation", at = @At("HEAD"), cancellable = true)
-    private void authon$cancel_arm_animation(Packet18Animation packet18Animation, CallbackInfo ci) {
-        if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
+    private void authon$cancel_handleArmAnimation(Packet18Animation packet18Animation, CallbackInfo ci) {
+        if (!IPlayerAuth.isAuthenticated(this.playerEntity)) {
             ci.cancel();
         }
     }
 
     @Inject(method = "handleEntityActions", at = @At("HEAD"), cancellable = true)
-    private void authon$cancel_action(Packet19EntityAction packet19EntityAction, CallbackInfo ci) {
-        if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
+    private void authon$cancel_handleEntityActions(Packet19EntityAction packet19EntityAction, CallbackInfo ci) {
+        if (!IPlayerAuth.isAuthenticated(this.playerEntity)) {
             ci.cancel();
         }
     }
 
     @Inject(method = "handleUseEntity", at = @At("HEAD"), cancellable = true)
-    private void authon$cancel_use_entity(Packet7UseEntity packet7, CallbackInfo ci) {
-        if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
+    private void authon$cancel_handleUseEntity(Packet7UseEntity packet7, CallbackInfo ci) {
+        if (!IPlayerAuth.isAuthenticated(this.playerEntity)) {
             ci.cancel();
         }
     }
 
     @Inject(method = "handleGuiClick", at = @At("HEAD"), cancellable = true)
-    private void authon$cancel_windows(Packet102WindowClick packet102WindowClick, CallbackInfo ci) {
-        if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
+    private void authon$cancel_handleGuiClick(Packet102WindowClick packet102WindowClick, CallbackInfo ci) {
+        if (!IPlayerAuth.isAuthenticated(this.playerEntity)) {
             ci.cancel();
         }
     }
 
     @Inject(method = "handleTransaction", at = @At("HEAD"), cancellable = true)
-    private void authon$cancel_craft_transaction(Packet106Transaction packet106Transaction, CallbackInfo ci) {
-        if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
+    private void authon$cancel_handleTransaction(Packet106Transaction packet106Transaction, CallbackInfo ci) {
+        if (!IPlayerAuth.isAuthenticated(this.playerEntity)) {
             ci.cancel();
         }
     }
 
     @Inject(method = "handleSignUpdate", at = @At("HEAD"), cancellable = true)
-    private void authon$cancel_sign_update(Packet130UpdateSign packet130UpdateSign, CallbackInfo ci) {
-        if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
+    private void authon$cancel_handleSignUpdate(Packet130UpdateSign packet130UpdateSign, CallbackInfo ci) {
+        if (!IPlayerAuth.isAuthenticated(this.playerEntity)) {
             ci.cancel();
         }
     }
 
     @Inject(method = "handleCuneiformBlockUpdate", at = @At("HEAD"), cancellable = true)
-    private void authon$cancel_cuneiform_update(Packet133UpdateCuneiformBlock packet133, CallbackInfo ci) {
-        if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
+    private void authon$cancel_handleCuneiformBlockUpdate(Packet133UpdateCuneiformBlock packet133, CallbackInfo ci) {
+        if (!IPlayerAuth.isAuthenticated(this.playerEntity)) {
             ci.cancel();
         }
     }

@@ -18,7 +18,7 @@ import java.util.concurrent.ScheduledExecutorService;
 
 public class AuthonServer extends Mod {
     public static final AuthonConfig CONFIG = new AuthonConfig();
-    public static final ScheduledExecutorService TIMEOUT_POOL = Executors.newScheduledThreadPool(8);
+    public static final ScheduledExecutorService TIMEOUT_POOL = Executors.newScheduledThreadPool(16);
     private static IStorage STORAGE;
     private static PassEncryption ENCRYPTOR;
     private static String VERSION;
