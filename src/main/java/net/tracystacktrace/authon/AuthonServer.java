@@ -32,7 +32,7 @@ public class AuthonServer extends Mod {
 
     @Override
     public void onPreInit() {
-        if(!FoxLauncher.isServer()) {
+        if (!FoxLauncher.isServer()) {
             throw new RuntimeException("The mod is only supported on servers! Do not install it on client-side!");
         }
 

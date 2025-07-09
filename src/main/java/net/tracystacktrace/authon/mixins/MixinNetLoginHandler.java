@@ -11,6 +11,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+/**
+ * In this mixin, we end up initializing the authentication process,
+ * basically showing info about authorization and pushing some other checks over.
+ *
+ * @since 1.0
+ */
 @Mixin(NetLoginHandler.class)
 public class MixinNetLoginHandler {
     @Inject(method = "initializePlayerConnection", at = @At(
@@ -19,10 +25,10 @@ public class MixinNetLoginHandler {
             shift = At.Shift.AFTER
     ))
     private void authon$init_auth_chat(CallbackInfo ci, @Local EntityPlayerMP player) {
-        if(AuthonServer.CONFIG.allowsSessions && GameUtils.checkSession(player)) {
+        if (AuthonServer.CONFIG.allowsSessions && GameUtils.checkSession(player)) {
             player.addChatMessage(AuthonServer.CONFIG.local_session_success);
-            ((IPlayerAuth)player).setAuthenticated(true);
-        }else {
+            ((IPlayerAuth) player).setAuthenticated(true);
+        } else {
             GameUtils.initPlayerAuth(player);
         }
     }

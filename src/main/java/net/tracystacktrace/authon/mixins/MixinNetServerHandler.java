@@ -14,9 +14,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
- * literally a cancelling mixin
- * <br>
- * even like twitter didn't cancel that hard
+ * In order to prevent the illegal actions and block the user until auth is complete,
+ * this mixin class ends up cancelling action events.
+ *
+ * @since 1.0
  */
 @Mixin(NetServerHandler.class)
 public abstract class MixinNetServerHandler {

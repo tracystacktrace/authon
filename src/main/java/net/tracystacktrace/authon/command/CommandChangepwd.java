@@ -24,7 +24,7 @@ public class CommandChangepwd extends Command {
 
     @Override
     public void onExecute(String[] args, ICommandListener commandExecutor) {
-        if(!(commandExecutor instanceof NetServerHandler)) {
+        if (!(commandExecutor instanceof NetServerHandler)) {
             commandExecutor.log("Use this from user side! lmaoaooamoamo");
             return;
         }

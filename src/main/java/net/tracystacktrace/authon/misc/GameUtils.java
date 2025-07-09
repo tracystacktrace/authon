@@ -14,6 +14,10 @@ public class GameUtils {
         return s.length() >= AuthonServer.CONFIG.minPassLength;
     }
 
+    public static boolean isAuthCommand(@NotNull String command) {
+        return command.startsWith("/login") || command.startsWith("/register") || command.startsWith("/changepwd") || command.startsWith("/authon");
+    }
+
     public static void informPlayer(@NotNull EntityPlayerMP player) {
         player.addChatMessage(
                 AuthonServer.getStorage().isPlayerPresent(player.username) ?
@@ -26,13 +30,14 @@ public class GameUtils {
         informPlayer(player);
         final String username_constant = player.username;
 
+        //push waiting async
         AuthonServer.TIMEOUT_POOL.schedule(() -> {
-            EntityPlayerMP player1 = MinecraftServer.getInstance().configManager.getPlayerEntity(username_constant);
-            if (player1 == null) {
+            final EntityPlayerMP scheduleEntity = MinecraftServer.getInstance().configManager.getPlayerEntity(username_constant);
+            if (scheduleEntity == null) {
                 return;
             }
-            if (!((IPlayerAuth) player1).isAuthenticated()) {
-                player1.playerNetServerHandler.kickPlayer(AuthonServer.CONFIG.local_auth_kick);
+            if (!((IPlayerAuth) scheduleEntity).isAuthenticated()) {
+                scheduleEntity.playerNetServerHandler.kickPlayer(AuthonServer.CONFIG.local_auth_kick);
             }
         }, AuthonServer.CONFIG.waitingTime, TimeUnit.SECONDS);
     }
@@ -43,7 +48,7 @@ public class GameUtils {
 
     public static boolean checkSession(@NotNull EntityPlayerMP player) {
         final PlayerContainer container = AuthonServer.getStorage().getPlayer(player.username);
-        if(container == null) {
+        if (container == null) {
             return false;
         }
         return getIPAddress(player).equals(container.getIp());

@@ -26,12 +26,12 @@ public class CommandLogin extends Command {
 
     @Override
     public void onExecute(String[] args, ICommandListener commandExecutor) {
-        if(!(commandExecutor instanceof NetServerHandler)) {
+        if (!(commandExecutor instanceof NetServerHandler)) {
             commandExecutor.log("Use this from user!!!");
             return;
         }
 
-        IPlayerAuth auth = (IPlayerAuth) ((NetServerHandler)commandExecutor).getEntityPlayer();
+        IPlayerAuth auth = (IPlayerAuth) ((NetServerHandler) commandExecutor).getEntityPlayer();
 
         if (auth.isAuthenticated()) {
             commandExecutor.log(AuthonServer.CONFIG.local_login_already);

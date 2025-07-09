@@ -26,12 +26,12 @@ public class CommandRegister extends Command {
 
     @Override
     public void onExecute(String[] args, ICommandListener commandExecutor) {
-        if(!(commandExecutor instanceof NetServerHandler)) {
+        if (!(commandExecutor instanceof NetServerHandler)) {
             commandExecutor.log("Only users can access this shit!");
             return;
         }
 
-        final IPlayerAuth auth = (IPlayerAuth) ((NetServerHandler)commandExecutor).getEntityPlayer();
+        final IPlayerAuth auth = (IPlayerAuth) ((NetServerHandler) commandExecutor).getEntityPlayer();
 
         if (auth.isAuthenticated()) {
             commandExecutor.log(AuthonServer.CONFIG.local_login_already);

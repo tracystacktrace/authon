@@ -10,7 +10,8 @@ public interface IPlayerAuth {
 
     @NotNull String getLoginUsername();
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     static boolean isAuthenticated(EntityPlayer player) {
-        return ((IPlayerAuth)player).isAuthenticated();
+        return ((IPlayerAuth) player).isAuthenticated();
     }
 }

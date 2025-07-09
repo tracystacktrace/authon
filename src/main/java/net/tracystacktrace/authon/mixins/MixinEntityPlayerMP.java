@@ -9,6 +9,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+/**
+ * This allows to secure the player from attacks while being in auth limbo.
+ *
+ * @since 1.0
+ */
 @Mixin(EntityPlayerMP.class)
 public class MixinEntityPlayerMP {
     @Inject(method = "attackEntityFrom", at = @At("HEAD"), cancellable = true)

@@ -102,7 +102,7 @@ public class CommandAdminAuthon extends Command {
                 String hash = AuthonServer.getEncryption().getHash(args[3]);
                 PlayerContainer player = AuthonServer.getStorage().getPlayer(username);
 
-                if(player == null) {
+                if (player == null) {
                     commandExecutor.log(AuthonServer.CONFIG.local_db_unexpected);
                     return;
                 }

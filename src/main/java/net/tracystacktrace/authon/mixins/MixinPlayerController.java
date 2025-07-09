@@ -12,6 +12,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+/**
+ * In order to prevent the illegal actions and block the user until auth is complete,
+ * this mixin class ends up cancelling action events.
+ *
+ * @since 1.0
+ */
 @Mixin(PlayerController.class)
 public class MixinPlayerController {
     @Shadow
@@ -83,7 +89,7 @@ public class MixinPlayerController {
             cir.cancel();
         }
     }
-    
+
     @Inject(method = "cancelDestroyingBlock", at = @At("HEAD"), cancellable = true)
     private void authon$cancel_cancelDestroyingBlock(int x, int y, int z, CallbackInfo ci) {
         if (!IPlayerAuth.isAuthenticated(this.player)) {
