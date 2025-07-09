@@ -3,7 +3,7 @@ package net.tracystacktrace.authon.mixins;
 import net.minecraft.common.entity.Entity;
 import net.minecraft.common.entity.data.DamageType;
 import net.minecraft.server.entity.player.EntityPlayerMP;
-import net.tracystacktrace.authon.misc.IPlayerAuth;
+import net.tracystacktrace.authon.tools.IPlayerAuth;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

@@ -5,8 +5,8 @@ import net.minecraft.common.command.ICommandListener;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.entity.player.EntityPlayerMP;
 import net.tracystacktrace.authon.AuthonServer;
-import net.tracystacktrace.authon.misc.GameUtils;
-import net.tracystacktrace.authon.storage.PlayerContainer;
+import net.tracystacktrace.authon.tools.GameUtils;
+import net.tracystacktrace.authon.tools.storage.PlayerContainer;
 
 public class CommandAdminAuthon extends Command {
 
@@ -16,7 +16,7 @@ public class CommandAdminAuthon extends Command {
 
     @Override
     public String commandSyntax() {
-        return "§e/authon register|changepwd|unregister <username> <password>";
+        return "§e/authon register|changepwd|unregister|version <username> <password>";
     }
 
     @Override
@@ -117,7 +117,16 @@ public class CommandAdminAuthon extends Command {
                 return;
             }
 
-            default:
+            case "version": {
+                commandExecutor.logFormat("§eYou are running AuthOn version %s", AuthonServer.getVersion());
+                commandExecutor.log("§eFor more information, follow the link:");
+                commandExecutor.log("§ehttps://github.com/tracystacktrace/authon");
+                return;
+            }
+
+            default: {
+                return;
+            }
         }
     }
 

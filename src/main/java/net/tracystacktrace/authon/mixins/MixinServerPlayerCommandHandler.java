@@ -2,7 +2,7 @@ package net.tracystacktrace.authon.mixins;
 
 import net.minecraft.common.util.logging.LogAgent;
 import net.minecraft.server.command.ServerPlayerCommandHandler;
-import net.tracystacktrace.authon.misc.GameUtils;
+import net.tracystacktrace.authon.tools.GameUtils;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;

@@ -7,12 +7,12 @@ import net.tracystacktrace.authon.command.CommandAdminAuthon;
 import net.tracystacktrace.authon.command.CommandChangepwd;
 import net.tracystacktrace.authon.command.CommandLogin;
 import net.tracystacktrace.authon.command.CommandRegister;
-import net.tracystacktrace.authon.misc.AuthonConfig;
-import net.tracystacktrace.authon.security.PassEncryption;
-import net.tracystacktrace.authon.storage.IStorage;
-import net.tracystacktrace.authon.storage.impl.H2Database;
+import net.tracystacktrace.authon.config.AuthonConfig;
+import net.tracystacktrace.authon.tools.security.PassEncryption;
+import net.tracystacktrace.authon.tools.storage.IStorage;
+import net.tracystacktrace.authon.tools.storage.impl.H2Database;
+import org.jetbrains.annotations.NotNull;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -21,31 +21,33 @@ public class AuthonServer extends Mod {
     public static final ScheduledExecutorService TIMEOUT_POOL = Executors.newScheduledThreadPool(8);
     private static IStorage STORAGE;
     private static PassEncryption ENCRYPTOR;
+    private static String VERSION;
 
-    public static IStorage getStorage() {
+    public static @NotNull IStorage getStorage() {
         return STORAGE;
     }
 
-    public static PassEncryption getEncryption() {
+    public static @NotNull PassEncryption getEncryption() {
         return ENCRYPTOR;
+    }
+
+    public static @NotNull String getVersion() {
+        return VERSION;
     }
 
     @Override
     public void onPreInit() {
         if (!FoxLauncher.isServer()) {
-            throw new RuntimeException("The mod is only supported on servers! Do not install it on client-side!");
+            throw new RuntimeException("The mod is only supported on servers! Do not install it on client side!");
         }
 
         this.setConfigObject(CONFIG);
 
+        VERSION = this.getModContainer().getModInfo().version;
         STORAGE = new H2Database();
+        ENCRYPTOR = PassEncryption.getInstance();
 
-        try {
-            ENCRYPTOR = new PassEncryption();
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("SHA-256 is not supported in this environment! Aborting!", e);
-        }
-
+        //register commands
         CommandRegistry.registerCommand(new CommandAdminAuthon());
         CommandRegistry.registerCommand(new CommandRegister());
         CommandRegistry.registerCommand(new CommandLogin());

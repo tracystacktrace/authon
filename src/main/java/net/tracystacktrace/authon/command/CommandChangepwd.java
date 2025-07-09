@@ -4,8 +4,8 @@ import net.minecraft.common.command.Command;
 import net.minecraft.common.command.ICommandListener;
 import net.minecraft.server.networking.NetServerHandler;
 import net.tracystacktrace.authon.AuthonServer;
-import net.tracystacktrace.authon.misc.GameUtils;
-import net.tracystacktrace.authon.storage.PlayerContainer;
+import net.tracystacktrace.authon.tools.GameUtils;
+import net.tracystacktrace.authon.tools.storage.PlayerContainer;
 
 public class CommandChangepwd extends Command {
 

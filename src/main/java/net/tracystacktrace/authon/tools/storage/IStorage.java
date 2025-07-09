@@ -1,4 +1,4 @@
-package net.tracystacktrace.authon.storage;
+package net.tracystacktrace.authon.tools.storage;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

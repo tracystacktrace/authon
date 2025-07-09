@@ -1,4 +1,4 @@
-package net.tracystacktrace.authon.security;
+package net.tracystacktrace.authon.tools.security;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -53,4 +53,11 @@ public class PassEncryption {
         return hash.equals(getHash(supposed));
     }
 
+    public static @NotNull PassEncryption getInstance() {
+        try {
+            return new PassEncryption();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("SHA-256 is not supported in this environment! Aborting!", e);
+        }
+    }
 }
