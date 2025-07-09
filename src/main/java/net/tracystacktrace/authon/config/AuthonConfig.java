@@ -4,17 +4,20 @@ import com.fox2code.foxloader.config.ConfigEntry;
 
 public class AuthonConfig {
 
-    @ConfigEntry(configName = "Amount of time (in seconds) to allow the player to login/register")
+    @ConfigEntry(configComment = "Amount of time (in seconds) to allow the player to login/register")
     public int waitingTime = 30;
 
-    @ConfigEntry(configName = "The minimal number of chars for the password. Should be 8 or more")
+    @ConfigEntry(configComment = "The minimal number of chars for the password. Should be 8 or more")
     public int minPassLength = 8;
 
-    @ConfigEntry(configName = "Instantly kick on first faulty attempt")
+    @ConfigEntry(configComment = "Instantly kick on first faulty attempt")
     public boolean instantKick = true;
 
-    @ConfigEntry(configName = "Allows IP sessions in a server")
+    @ConfigEntry(configComment = "Allows IP sessions in a server")
     public boolean allowsSessions = false;
+
+    @ConfigEntry(configComment = "Hide inventory content before auth is completed")
+    public boolean hideInventoryContent = true;
 
     /* Translation (localization) config fields */
 

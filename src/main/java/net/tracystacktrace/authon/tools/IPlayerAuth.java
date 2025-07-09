@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 public interface IPlayerAuth {
     boolean isAuthenticated();
 
-    void setAuthenticated(boolean b);
+    void setAuthenticated(boolean value);
 
     @NotNull String getLoginUsername();
 

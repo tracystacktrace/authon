@@ -1,6 +1,8 @@
 package net.tracystacktrace.authon.mixins;
 
 import net.minecraft.common.entity.player.EntityPlayer;
+import net.minecraft.server.entity.player.EntityPlayerMP;
+import net.tracystacktrace.authon.AuthonServer;
 import net.tracystacktrace.authon.tools.IPlayerAuth;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
@@ -27,8 +29,11 @@ public abstract class MixinEntityPlayer implements IPlayerAuth {
     }
 
     @Override
-    public void setAuthenticated(boolean b) {
-        this.authon$isAuthenticated = b;
+    public void setAuthenticated(boolean value) {
+        this.authon$isAuthenticated = value;
+        if (AuthonServer.CONFIG.hideInventoryContent && value) {
+            EntityPlayerMP.class.cast(this).func_20057_k();
+        }
     }
 
     @Override
