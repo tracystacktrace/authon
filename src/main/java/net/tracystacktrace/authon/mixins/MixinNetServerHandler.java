@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /**
  * literally a cancelling mixin
  * <br>
- * even like twitter didnt cancel that hard
+ * even like twitter didn't cancel that hard
  */
 @Mixin(NetServerHandler.class)
 public abstract class MixinNetServerHandler {
@@ -34,13 +34,6 @@ public abstract class MixinNetServerHandler {
             ci.cancel();
         }
     }
-
-//    @Inject(method = "handleCauldron", at = @At("HEAD"), cancellable = true)
-//    private void authon$cancel_cauldron(Packet66Cauldron packet66Cauldron, CallbackInfo ci) {
-//        if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
-//            ci.cancel();
-//        }
-//    }
 
     @Inject(method = "handleCreativeSetSlot", at = @At("HEAD"), cancellable = true)
     private void authon$cancel_creative_set_slot(Packet107CreativeSetSlot packet107, CallbackInfo ci) {
@@ -108,7 +101,7 @@ public abstract class MixinNetServerHandler {
     @Inject(method = "handleChat", at = @At("HEAD"), cancellable = true)
     private void authon$cancel_chat(Packet3Chat packet3Chat, CallbackInfo ci) {
         if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
-            String message = packet3Chat.message;
+            String message = packet3Chat.message.trim();
             if (!message.startsWith("/login") && !message.startsWith("/register")) {
                 GameUtils.informPlayer(this.playerEntity);
                 ci.cancel();
@@ -153,6 +146,13 @@ public abstract class MixinNetServerHandler {
 
     @Inject(method = "handleSignUpdate", at = @At("HEAD"), cancellable = true)
     private void authon$cancel_sign_update(Packet130UpdateSign packet130UpdateSign, CallbackInfo ci) {
+        if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
+            ci.cancel();
+        }
+    }
+
+    @Inject(method = "handleCuneiformBlockUpdate", at = @At("HEAD"), cancellable = true)
+    private void authon$cancel_cuneiform_update(Packet133UpdateCuneiformBlock packet133, CallbackInfo ci) {
         if (!((IPlayerAuth) this.playerEntity).isAuthenticated()) {
             ci.cancel();
         }

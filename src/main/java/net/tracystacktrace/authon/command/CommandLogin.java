@@ -31,7 +31,8 @@ public class CommandLogin extends Command {
             return;
         }
 
-        IPlayerAuth auth = (IPlayerAuth) commandExecutor;
+        IPlayerAuth auth = (IPlayerAuth) ((NetServerHandler)commandExecutor).getEntityPlayer();
+
         if (auth.isAuthenticated()) {
             commandExecutor.log(AuthonServer.CONFIG.local_login_already);
             return;

@@ -24,9 +24,10 @@ public class GameUtils {
 
     public static void initPlayerAuth(@NotNull EntityPlayerMP player) {
         informPlayer(player);
+        final String username_constant = player.username;
+
         AuthonServer.TIMEOUT_POOL.schedule(() -> {
-            final String usnm_const = player.username;
-            EntityPlayerMP player1 = MinecraftServer.getInstance().configManager.getPlayerEntity(usnm_const);
+            EntityPlayerMP player1 = MinecraftServer.getInstance().configManager.getPlayerEntity(username_constant);
             if (player1 == null) {
                 return;
             }
@@ -41,10 +42,10 @@ public class GameUtils {
     }
 
     public static boolean checkSession(@NotNull EntityPlayerMP player) {
-        PlayerContainer playerContainer = AuthonServer.getStorage().getPlayer(player.username);
-        if(playerContainer == null) {
+        final PlayerContainer container = AuthonServer.getStorage().getPlayer(player.username);
+        if(container == null) {
             return false;
         }
-        return getIPAddress(player).equals(playerContainer.getIp());
+        return getIPAddress(player).equals(container.getIp());
     }
 }

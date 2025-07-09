@@ -18,69 +18,76 @@ public class MixinPlayerController {
     public EntityPlayer player;
 
     @Inject(method = "toggleGameType", at = @At("HEAD"), cancellable = true)
-    public void authon$toggle_1(int i, CallbackInfo ci) {
-        if (!((IPlayerAuth) this.player).isAuthenticated()) {
+    public void authon$cancel_toggleGameType(int i, CallbackInfo ci) {
+        if (!IPlayerAuth.isAuthenticated(this.player)) {
             ci.cancel();
         }
     }
 
     @Inject(method = "func_35695_b", at = @At("HEAD"), cancellable = true)
-    public void authon$toggle_2(int i, CallbackInfo ci) {
-        if (!((IPlayerAuth) this.player).isAuthenticated()) {
+    public void authon$cancel_func_35695_b(int i, CallbackInfo ci) {
+        if (!IPlayerAuth.isAuthenticated(this.player)) {
             ci.cancel();
         }
     }
 
     @Inject(method = "updateBlockRemoving", at = @At("HEAD"), cancellable = true)
-    public void authon$toggle_3(CallbackInfo ci) {
-        if (!((IPlayerAuth) this.player).isAuthenticated()) {
+    public void authon$cancel_updateBlockRemoving(CallbackInfo ci) {
+        if (!IPlayerAuth.isAuthenticated(this.player)) {
             ci.cancel();
         }
     }
 
     @Inject(method = "blockClicked", at = @At("HEAD"), cancellable = true)
-    public void authon$toggle_4(int x, int y, int z, int facing, CallbackInfo ci) {
-        if (!((IPlayerAuth) this.player).isAuthenticated()) {
+    public void authon$cancel_blockClicked(int x, int y, int z, int facing, CallbackInfo ci) {
+        if (!IPlayerAuth.isAuthenticated(this.player)) {
             ci.cancel();
         }
     }
 
     @Inject(method = "blockRemoving", at = @At("HEAD"), cancellable = true)
-    public void authon$toggle_5(int x, int y, int z, CallbackInfo ci) {
-        if (!((IPlayerAuth) this.player).isAuthenticated()) {
+    public void authon$cancel_blockRemoving(int x, int y, int z, CallbackInfo ci) {
+        if (!IPlayerAuth.isAuthenticated(this.player)) {
             ci.cancel();
         }
     }
 
     @Inject(method = "removeBlock", at = @At("HEAD"), cancellable = true)
-    public void authon$toggle_6(int x, int y, int z, CallbackInfoReturnable<Boolean> cir) {
-        if (!((IPlayerAuth) this.player).isAuthenticated()) {
+    public void authon$cancel_removeBlock(int x, int y, int z, CallbackInfoReturnable<Boolean> cir) {
+        if (!IPlayerAuth.isAuthenticated(this.player)) {
             cir.setReturnValue(false);
             cir.cancel();
         }
     }
 
     @Inject(method = "harvestBlock", at = @At("HEAD"), cancellable = true)
-    public void authon$toggle_7(int x, int y, int z, CallbackInfoReturnable<Boolean> cir) {
-        if (!((IPlayerAuth) this.player).isAuthenticated()) {
+    public void authon$cancel_harvestBlock(int x, int y, int z, CallbackInfoReturnable<Boolean> cir) {
+        if (!IPlayerAuth.isAuthenticated(this.player)) {
             cir.setReturnValue(false);
             cir.cancel();
         }
     }
 
     @Inject(method = "itemUsed", at = @At("HEAD"), cancellable = true)
-    public void authon$toggle_8(EntityPlayer entityplayer, World world, ItemStack itemstack, CallbackInfoReturnable<Boolean> cir) {
-        if (!((IPlayerAuth) this.player).isAuthenticated()) {
+    public void authon$cancel_itemUsed(EntityPlayer entityplayer, World world, ItemStack itemstack, CallbackInfoReturnable<Boolean> cir) {
+        if (!IPlayerAuth.isAuthenticated(this.player)) {
             cir.setReturnValue(false);
             cir.cancel();
         }
     }
 
     @Inject(method = "activeBlockOrUseItem", at = @At("HEAD"), cancellable = true)
-    public void authon$toggle_9(EntityPlayer player, World world, ItemStack itemstack, int x, int y, int z, int facing, float xVec, float yVec, float zVec, CallbackInfoReturnable<Boolean> cir) {
-        if (!((IPlayerAuth) this.player).isAuthenticated()) {
+    public void authon$cancel_activeBlockOrUseItem(EntityPlayer player, World world, ItemStack itemstack, int x, int y, int z, int facing, float xVec, float yVec, float zVec, CallbackInfoReturnable<Boolean> cir) {
+        if (!IPlayerAuth.isAuthenticated(this.player)) {
             cir.setReturnValue(false);
             cir.cancel();
+        }
+    }
+    
+    @Inject(method = "cancelDestroyingBlock", at = @At("HEAD"), cancellable = true)
+    private void authon$cancel_cancelDestroyingBlock(int x, int y, int z, CallbackInfo ci) {
+        if (!IPlayerAuth.isAuthenticated(this.player)) {
+            ci.cancel();
         }
     }
 }

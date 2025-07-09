@@ -1,10 +1,8 @@
 package net.tracystacktrace.authon.mixins;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.common.networking.Packet1Login;
 import net.minecraft.server.entity.player.EntityPlayerMP;
 import net.minecraft.server.networking.NetLoginHandler;
-import net.minecraft.server.networking.NetServerHandler;
 import net.tracystacktrace.authon.AuthonServer;
 import net.tracystacktrace.authon.misc.GameUtils;
 import net.tracystacktrace.authon.misc.IPlayerAuth;
@@ -15,17 +13,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(NetLoginHandler.class)
 public class MixinNetLoginHandler {
-    @Inject(method = "handleLogin", at = @At(
+    @Inject(method = "initializePlayerConnection", at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/src/game/entity/player/EntityPlayerMP;func_20057_k()V",
+            target = "Lcom/fox2code/foxloader/internal/InternalPlayerHooks;sendPlayerJoinEvent(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/common/entity/player/EntityPlayer;)V",
             shift = At.Shift.AFTER
     ))
-    private void authon$init_auth_chat(
-            Packet1Login packet1Login,
-            CallbackInfo ci,
-            @Local EntityPlayerMP player,
-            @Local NetServerHandler netServerHandler
-    ) {
+    private void authon$init_auth_chat(CallbackInfo ci, @Local EntityPlayerMP player) {
         if(AuthonServer.CONFIG.allowsSessions && GameUtils.checkSession(player)) {
             player.addChatMessage(AuthonServer.CONFIG.local_session_success);
             ((IPlayerAuth)player).setAuthenticated(true);
