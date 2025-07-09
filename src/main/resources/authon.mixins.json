@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.tracystacktrace.authon.mixins",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinContainer",
+    "MixinEntityPlayer",
+    "MixinEntityPlayerMP",
+    "MixinNetLoginHandler",
+    "MixinNetServerHandler",
+    "MixinPlayerController",
+    "MixinServerConfigurationManager",
+    "MixinServerPlayerCommandHandler"
+  ]
+}
