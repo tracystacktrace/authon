@@ -1,6 +1,6 @@
 # AuthOn
 
-<img src="https://github.com/tracystacktrace/authon/raw/main/src/main/resources/assets/authon/icon.png" alt="Mod Icon" width=200% />
+![](https://github.com/tracystacktrace/authon/raw/main/docs/icon_upscaled.png)
 
 [![Running on - FoxLoader](https://img.shields.io/badge/Running_on-FoxLoader-orange)](https://github.com/Fox2Code/FoxLoader) [![GitHub release](https://img.shields.io/github/release/tracystacktrace/authon?include_prereleases=&sort=semver&color=purple)](https://github.com/tracystacktrace/authon/releases/)
 
