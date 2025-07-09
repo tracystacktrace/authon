@@ -1,4 +1,4 @@
-package net.tracyex0.authon.misc;
+package net.tracystacktrace.authon.misc;
 
 import net.minecraft.common.entity.player.EntityPlayer;
 import org.jetbrains.annotations.NotNull;

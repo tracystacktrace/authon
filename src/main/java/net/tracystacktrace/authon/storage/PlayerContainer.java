@@ -1,4 +1,4 @@
-package net.tracyex0.authon.storage;
+package net.tracystacktrace.authon.storage;
 
 import java.util.Objects;
 

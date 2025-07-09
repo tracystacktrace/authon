@@ -1,9 +1,9 @@
-package net.tracyex0.authon.misc;
+package net.tracystacktrace.authon.misc;
 
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.entity.player.EntityPlayerMP;
-import net.tracyex0.authon.AuthonServer;
-import net.tracyex0.authon.storage.PlayerContainer;
+import net.tracystacktrace.authon.AuthonServer;
+import net.tracystacktrace.authon.storage.PlayerContainer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.TimeUnit;

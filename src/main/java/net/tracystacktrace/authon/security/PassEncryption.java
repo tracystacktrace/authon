@@ -1,4 +1,4 @@
-package net.tracyex0.authon.security;
+package net.tracystacktrace.authon.security;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

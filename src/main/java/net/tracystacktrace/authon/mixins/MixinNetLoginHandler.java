@@ -1,13 +1,13 @@
-package net.tracyex0.authon.mixins;
+package net.tracystacktrace.authon.mixins;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.common.networking.Packet1Login;
 import net.minecraft.server.entity.player.EntityPlayerMP;
 import net.minecraft.server.networking.NetLoginHandler;
 import net.minecraft.server.networking.NetServerHandler;
-import net.tracyex0.authon.AuthonServer;
-import net.tracyex0.authon.misc.GameUtils;
-import net.tracyex0.authon.misc.IPlayerAuth;
+import net.tracystacktrace.authon.AuthonServer;
+import net.tracystacktrace.authon.misc.GameUtils;
+import net.tracystacktrace.authon.misc.IPlayerAuth;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

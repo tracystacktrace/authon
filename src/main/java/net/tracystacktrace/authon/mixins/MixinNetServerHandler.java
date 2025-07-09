@@ -1,11 +1,11 @@
-package net.tracyex0.authon.mixins;
+package net.tracystacktrace.authon.mixins;
 
 import net.minecraft.common.networking.*;
 import net.minecraft.server.entity.player.EntityPlayerMP;
 import net.minecraft.server.networking.NetServerHandler;
-import net.tracyex0.authon.misc.GameUtils;
-import net.tracyex0.authon.misc.IPlayerAuth;
-import net.tracyex0.authon.misc.TemporaryTape;
+import net.tracystacktrace.authon.misc.GameUtils;
+import net.tracystacktrace.authon.misc.IPlayerAuth;
+import net.tracystacktrace.authon.misc.TemporaryTape;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;

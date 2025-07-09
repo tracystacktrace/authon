@@ -1,10 +1,10 @@
-package net.tracyex0.authon.mixins;
+package net.tracystacktrace.authon.mixins;
 
 import net.minecraft.common.entity.player.EntityPlayer;
 import net.minecraft.common.item.ItemStack;
 import net.minecraft.common.world.World;
 import net.minecraft.server.entity.player.PlayerController;
-import net.tracyex0.authon.misc.IPlayerAuth;
+import net.tracystacktrace.authon.misc.IPlayerAuth;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;

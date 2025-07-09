@@ -54,6 +54,6 @@ foxloader {
     modVersion = project.version
     modWebsite = "https://codeberg.org/tracystacktrace/authon"
     modAuthors = "tracystacktrace"
-    modMain = "net.tracyex0.authon.AuthonServer"
+    modMain = "net.tracystacktrace.authon.AuthonServer"
     modDesc("A simple auth mod for FoxLoader servers")
 }

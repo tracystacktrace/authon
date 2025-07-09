@@ -1,16 +1,16 @@
-package net.tracyex0.authon;
+package net.tracystacktrace.authon;
 
 import com.fox2code.foxloader.launcher.FoxLauncher;
 import com.fox2code.foxloader.loader.Mod;
 import com.fox2code.foxloader.registry.CommandRegistry;
-import net.tracyex0.authon.command.CommandAdminAuthon;
-import net.tracyex0.authon.command.CommandChangepwd;
-import net.tracyex0.authon.command.CommandLogin;
-import net.tracyex0.authon.command.CommandRegister;
-import net.tracyex0.authon.misc.AuthonConfig;
-import net.tracyex0.authon.security.PassEncryption;
-import net.tracyex0.authon.storage.IStorage;
-import net.tracyex0.authon.storage.impl.H2Database;
+import net.tracystacktrace.authon.command.CommandAdminAuthon;
+import net.tracystacktrace.authon.command.CommandChangepwd;
+import net.tracystacktrace.authon.command.CommandLogin;
+import net.tracystacktrace.authon.command.CommandRegister;
+import net.tracystacktrace.authon.misc.AuthonConfig;
+import net.tracystacktrace.authon.security.PassEncryption;
+import net.tracystacktrace.authon.storage.IStorage;
+import net.tracystacktrace.authon.storage.impl.H2Database;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.Executors;

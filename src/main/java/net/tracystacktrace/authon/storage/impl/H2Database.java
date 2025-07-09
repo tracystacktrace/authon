@@ -1,7 +1,7 @@
-package net.tracyex0.authon.storage.impl;
+package net.tracystacktrace.authon.storage.impl;
 
-import net.tracyex0.authon.storage.IStorage;
-import net.tracyex0.authon.storage.PlayerContainer;
+import net.tracystacktrace.authon.storage.IStorage;
+import net.tracystacktrace.authon.storage.PlayerContainer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

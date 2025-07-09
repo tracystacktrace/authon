@@ -1,4 +1,4 @@
-package net.tracyex0.authon.mixins;
+package net.tracystacktrace.authon.mixins;
 
 import net.minecraft.common.command.ICommandListener;
 import net.minecraft.common.util.logging.LogAgent;

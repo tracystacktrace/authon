@@ -1,12 +1,12 @@
-package net.tracyex0.authon.command;
+package net.tracystacktrace.authon.command;
 
 import net.minecraft.common.command.Command;
 import net.minecraft.common.command.ICommandListener;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.entity.player.EntityPlayerMP;
-import net.tracyex0.authon.AuthonServer;
-import net.tracyex0.authon.misc.GameUtils;
-import net.tracyex0.authon.storage.PlayerContainer;
+import net.tracystacktrace.authon.AuthonServer;
+import net.tracystacktrace.authon.misc.GameUtils;
+import net.tracystacktrace.authon.storage.PlayerContainer;
 
 public class CommandAdminAuthon extends Command {
 

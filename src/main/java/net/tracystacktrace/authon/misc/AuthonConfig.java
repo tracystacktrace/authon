@@ -1,4 +1,4 @@
-package net.tracyex0.authon.misc;
+package net.tracystacktrace.authon.misc;
 
 import com.fox2code.foxloader.config.ConfigEntry;
 
